@@ -1,0 +1,44 @@
+@import './colors.scss';
+
+body {
+  margin: 0;
+  background-color: $light-grey;
+}
+
+.red-background {
+  background-color: $red;
+}
+
+.green-background {
+  background-color: $green;
+}
+
+.light-grey-background {
+  background-color: $light-grey;
+}
+
+.dark-grey-background {
+  background-color: $dark-grey;
+}
+
+.dark-blue-background {
+  background-color: $dark-blue;
+}
+
+.dark-grey-background,
+.dark-blue-background {
+
+  *,
+  .mat-tab-header {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  *:not(i),
+  .mat-tab-label>.mat-tab-label-content {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  h6 {
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+}

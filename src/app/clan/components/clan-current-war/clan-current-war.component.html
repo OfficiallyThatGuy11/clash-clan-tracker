@@ -1,0 +1,40 @@
+<shared-loading-indicator *ngIf="!clanWarData && currentlyNotInWar">Retrieving war data</shared-loading-indicator>
+<h4 *ngIf="currentlyNotInWar">No active war</h4>
+<div *ngIf="clanWarData">
+  <h5>{{clanWarData.state}}</h5>
+  <div>{{clanWarData.warEndTime}}</div>
+
+  <div class="participation-bar light-grey-background">
+    <div class="participation-bar-wins green-background"
+      [style.width]="clanWarData.clan.wins / clanWarData.clan.participants * 100 + '%'">
+      <i class="h4 green-background">check</i>
+    </div>
+    <div class="participation-bar-lost red-background"
+      [style.width]="(clanWarData.clan.battlesPlayed - clanWarData.clan.wins) / clanWarData.clan.participants * 100 + '%'">
+      <i class="h4 red-background">close</i>
+    </div>
+    <div class="participation-bar-overlay"></div>
+  </div>
+  <div class="warlog-item-chart-key">
+    <div class="warlog-item-label-and-value-pair">
+      <h6>Wins</h6>
+      <div>
+        <i class="h4 green-background">check</i>
+        <h5>{{clanWarData.clan.wins}}</h5>
+      </div>
+    </div>
+    <div class="warlog-item-label-and-value-pair">
+      <h6>Losses</h6>
+      <div>
+        <i class="h4 red-background">close</i>
+        <h5>{{clanWarData.clan.battlesPlayed - clanWarData.clan.wins}}</h5>
+      </div>
+    </div>
+    <div class="warlog-item-label-and-value-pair ">
+      <h6>Battles played</h6>
+      <div>
+        <i class="h4 light-grey-background">people</i>
+        <h5>{{clanWarData.clan.battlesPlayed}}/{{clanWarData.clan.participants}}</h5>
+      </div>
+    </div>
+  </div>

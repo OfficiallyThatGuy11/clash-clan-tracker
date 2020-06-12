@@ -1,0 +1,64 @@
+<shared-loading-indicator *ngIf="!clanSpecificWarlogItems">Retrieving warlog</shared-loading-indicator>
+<div *ngIf="clanSpecificWarlogItems" class="last-10-war-averages">
+  <h5>Previous 10 war averages</h5>
+  <div>
+    <div>
+      <h6>Average wins</h6>
+      <h4>{{averageWins}}</h4>
+    </div>
+    <div>
+      <h6>Average losses</h6>
+      <h4>{{averageLosses}}</h4>
+    </div>
+    <div>
+      <h6>Average participants</h6>
+      <h4>{{averageParticipants}}</h4>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+</div>
+<div class="warlog-item" *ngFor="let warlogItem of clanSpecificWarlogItems; let i = index;">
+  <mat-divider *ngIf="i != 0"></mat-divider>
+  <div class="warlog-item-top-information">
+    <h4>{{warlogItem.rankFormatted}}</h4>
+    <div class="warlog-trophies-change">
+      <i class="h4">emoji_events</i>
+      <h4 [ngClass]="warlogItem.trophyChangeTextColorClass">{{warlogItem.trophyChange}}</h4>
+    </div>
+    <button mat-stroked-button>More info</button>
+  </div>
+  <div class="participation-bar light-grey-background">
+    <div class="participation-bar-wins green-background"
+      [style.width]="warlogItem.wins / warlogItem.numberOfParticipants * 100 + '%'">
+      <i class="h4 green-background">check</i>
+    </div>
+    <div class="participation-bar-lost red-background"
+      [style.width]="warlogItem.losses / warlogItem.numberOfParticipants * 100 + '%'">
+      <i class="h4 red-background">close</i>
+    </div>
+    <div class="participation-bar-overlay"></div>
+  </div>
+  <div class="warlog-item-chart-key">
+    <div class="warlog-item-label-and-value-pair">
+      <h6>Wins</h6>
+      <div>
+        <i class="h4 green-background">check</i>
+        <h5>{{warlogItem.wins}}</h5>
+      </div>
+    </div>
+    <div class="warlog-item-label-and-value-pair">
+      <h6>Losses</h6>
+      <div>
+        <i class="h4 red-background">close</i>
+        <h5>{{warlogItem.losses}}</h5>
+      </div>
+    </div>
+    <div class="warlog-item-label-and-value-pair ">
+      <h6>Battles played</h6>
+      <div>
+        <i class="h4 light-grey-background">people</i>
+        <h5>{{warlogItem.battlesPlayed}}/{{warlogItem.numberOfParticipants}}</h5>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.clan-rank-number {
+  width: 1.5em;
+}
+
+.member-list-table-donations-ratio {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  >*+* {
+    margin-left: 0.4em;
+  }
+
+  h6+h6 {
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    padding-top: 0.2em;
+    margin-top: 0.2em;
+  }
+}
+
+
+.no-results-message {
+  margin: 8em auto;
+  width: fit-content;
+}

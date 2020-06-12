@@ -1,0 +1,14 @@
+@import '../../../styles/colors.scss';
+
+.header-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 3.2em;
+  background-color: #406E8E;
+  color: $white;
+  box-shadow: 0em 0.2em 0.4em 0.2em rgba(0, 0, 0, 0.2);
+  padding: 0.8em 1.6em;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}

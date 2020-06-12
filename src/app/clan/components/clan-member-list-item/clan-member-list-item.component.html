@@ -1,0 +1,23 @@
+<div class="member-item" *ngIf="member" (window:resize)="onResize($event)"
+  [ngClass]="{'member-item-reduce-font-size-on-hover': memberNameTooBig}">
+  <div class="member-item-rank"
+    [ngClass]="{'positive-change': rankChangeIcon === 'arrow_upward', 'negative-change': rankChangeIcon === 'arrow_downward'}">
+    <h4>#{{member.clanRank}}</h4>
+    <i *ngIf="rankChangeIcon">{{rankChangeIcon}}</i>
+    <h5 *ngIf="rankChangeIcon">{{rankChangeDifference}}</h5>
+  </div>
+  <div class="member-item-title">
+    <div class="member-item-title-row">
+      <h4 #memberNameElement class="overflow-ellipsis member-item-name">{{member.name}}</h4>
+      <h5>{{member.arena.name}}</h5>
+    </div>
+    <div class="member-item-title-row">
+      <h4>Level {{member.expLevel}}</h4>
+      <div>
+        <i>history</i>
+        <div>{{member.lastSeen | date : 'short'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="member-item-overlay-effect"></div>
+</div>

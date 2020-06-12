@@ -1,0 +1,88 @@
+@import '../../../../styles/colors.scss';
+
+.member-item {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  padding: 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+  >.member-item-overlay-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.05) 50%, rgba(0, 0, 0, 0.0) 100%);
+    pointer-events: none;
+  }
+}
+
+.member-item-rank {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  padding: 0 0;
+  margin: 4px;
+  border-radius: 4px;
+  background-color: $orange;
+  color: rgba($white, 0.8);
+  margin-right: 16px;
+  z-index: 1;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0px 0px 4px 2px rgba(0, 0, 0, 0.1);
+
+  &.positive-change {
+    background-color: $green;
+  }
+
+  &.negative-change {
+    background-color: $red;
+  }
+
+  i {
+    font-size: 1.4em;
+  }
+}
+
+.member-item-rank-change {
+  display: flex;
+  align-items: center;
+}
+
+.member-item-title {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.member-item-title-row {
+  width: 50%;
+  // display: flex;
+  // flex-flow: column nowrap;
+  // align-items: center;
+
+  >* {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    &+* {
+      margin-top: 8px;
+    }
+
+    >*+* {
+      margin-left: 4px;
+    }
+  }
+}
+
+.member-item-name {
+  transition: font-size 0.2s ease-in-out;
+}
+
+.member-item-reduce-font-size-on-hover:hover .member-item-name {
+  font-size: 1em;
+}

@@ -1,0 +1,74 @@
+<shared-loading-indicator *ngIf="!clan">Retrieving clan data</shared-loading-indicator>
+<div class="clan-information-panel" *ngIf="clan">
+  <div class="clan-information-panel-title dark-grey-background">
+    <h4>{{clan.name}}</h4>
+    <div>{{clan.tag}}</div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <h6>Description</h6>
+    <div>{{clan.description}}</div>
+  </div>
+  <div class="top-level-information">
+    <div>
+      <div>
+        <h6>Trophies</h6>
+        <div>
+          <i>emoji_events</i>
+          <h4>{{clan.clanWarTrophies}}</h4>
+        </div>
+      </div>
+      <div>
+        <h6>Required trophies</h6>
+        <div>
+          <i class="outlined">emoji_events</i>
+          <h4>{{clan.requiredTrophies}}</h4>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h6>Members</h6>
+        <div>
+          <i>people</i>
+          <h4>{{clan.members}}/50</h4>
+        </div>
+      </div>
+      <div>
+        <h6>Donations</h6>
+        <div>
+          <i>repeat</i>
+          <h4>{{clan.donationsPerWeek}}</h4>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h6>Type</h6>
+        <div>
+          <i>assignment_ind</i>
+          <h4>{{clan.type}}</h4>
+        </div>
+      </div>
+      <div>
+        <h6>Location</h6>
+        <div>
+          <i>place</i>
+          <h4>{{clan.location.countryCode}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-tab-group>
+    <mat-tab label="Current war">
+      <ng-template matTabContent>
+        <clan-current-war [clanTag]="clan.tag"></clan-current-war>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Warlog">
+      <ng-template matTabContent>
+        <clan-warlog [clanTag]="clan.tag"></clan-warlog>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

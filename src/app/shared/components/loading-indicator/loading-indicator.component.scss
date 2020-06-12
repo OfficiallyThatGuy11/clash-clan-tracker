@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.loading-indicator-container {
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+}
+
+h4 {
+  margin: 4em 0 0.2em;
+}
+
+mat-progress-bar {
+  margin-bottom: 8em;
+  margin-left: -1.6em;
+  width: calc(100% + 3.2em);
+}
