@@ -2,7 +2,8 @@
 
 body {
   margin: 0;
-  background-color: $light-grey;
+  background-color: $silver-grey;
+  position: relative;
 }
 
 .red-background {
@@ -41,4 +42,69 @@ body {
   h6 {
     color: rgba(255, 255, 255, 0.4) !important;
   }
+}
+
+.icon-value-pair {
+  display: flex;
+  flex-flow: nowrap;
+  align-items: center;
+
+  >*+* {
+    margin-left: 0.4rem;
+  }
+}
+
+mat-divider {
+  &.dashed {
+    border-top-style: dashed;
+  }
+
+  &.dotted {
+    border-top-style: dotted;
+  }
+
+  &.mat-divider-horizontal.small {
+    width: 100% !important;
+    margin-left: 0;
+  }
+}
+
+.mat-form-field-infix {
+  border-top-width: 0 !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+.mat-form-field-underline {
+  bottom: 0 !important;
+}
+
+.card-header {
+  .mat-form-field-underline {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .mat-form-field-ripple {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  input {
+    caret-color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.2s linear 0s 1 forwards;
 }

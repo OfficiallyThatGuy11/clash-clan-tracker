@@ -5,18 +5,11 @@
 
 
   >*+*:not(.top-level-information) {
-    margin-top: 0.8em;
+    margin-top: 0.8rem;
   }
 }
 
-.clan-information-panel-title {
-  margin: -0.8em -1.6em;
-  padding: 0.8em 1.6em;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: baseline;
-  justify-content: space-between;
-}
+
 
 .top-level-information {
   display: flex;
@@ -29,15 +22,11 @@
     >div {
       margin-top: 0.8rem;
 
-      >*+div {
-        display: flex;
-        flex-flow: nowrap;
-        align-items: center;
 
-        >*+* {
-          margin-left: 0.4rem;
-        }
-      }
     }
   }
+}
+
+clan-current-war {
+  display: block;
 }

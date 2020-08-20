@@ -1,64 +1,88 @@
-<shared-loading-indicator *ngIf="!clanSpecificWarlogItems">Retrieving warlog</shared-loading-indicator>
-<div *ngIf="clanSpecificWarlogItems" class="last-10-war-averages">
-  <h5>Previous 10 war averages</h5>
-  <div>
-    <div>
-      <h6>Average wins</h6>
-      <h4>{{averageWins}}</h4>
-    </div>
-    <div>
-      <h6>Average losses</h6>
-      <h4>{{averageLosses}}</h4>
-    </div>
-    <div>
-      <h6>Average participants</h6>
-      <h4>{{averageParticipants}}</h4>
-    </div>
+<shared-loading-indicator *ngIf="paginatedWarlogItems.length === 0">Retrieving warlog</shared-loading-indicator>
+<div *ngFor="let page of paginatedWarlogItems; let i = index" class="warlog-pages-container fade-in">
+  <div class="card-header dark-grey-background" *ngIf="i > 0">
+    <h4>Page {{i + 1}}</h4>
   </div>
-  <mat-divider></mat-divider>
-</div>
-<div class="warlog-item" *ngFor="let warlogItem of clanSpecificWarlogItems; let i = index;">
-  <mat-divider *ngIf="i != 0"></mat-divider>
-  <div class="warlog-item-top-information">
-    <h4>{{warlogItem.rankFormatted}}</h4>
-    <div class="warlog-trophies-change">
-      <i class="h4">emoji_events</i>
-      <h4 [ngClass]="warlogItem.trophyChangeTextColorClass">{{warlogItem.trophyChange}}</h4>
-    </div>
-    <button mat-stroked-button>More info</button>
-  </div>
-  <div class="participation-bar light-grey-background">
-    <div class="participation-bar-wins green-background"
-      [style.width]="warlogItem.wins / warlogItem.numberOfParticipants * 100 + '%'">
-      <i class="h4 green-background">check</i>
-    </div>
-    <div class="participation-bar-lost red-background"
-      [style.width]="warlogItem.losses / warlogItem.numberOfParticipants * 100 + '%'">
-      <i class="h4 red-background">close</i>
-    </div>
-    <div class="participation-bar-overlay"></div>
-  </div>
-  <div class="warlog-item-chart-key">
-    <div class="warlog-item-label-and-value-pair">
-      <h6>Wins</h6>
+  <div class="last-10-war-averages">
+    <h4>Previous {{page.length}} war averages</h4>
+    <div>
       <div>
-        <i class="h4 green-background">check</i>
-        <h5>{{warlogItem.wins}}</h5>
+        <h6>Wins</h6>
+        <button mat-stroked-button class="green-background">
+          <h4>{{pageAverages[i].averageWins}}</h4>
+          <h5>{{pageAverages[i].averageWins / pageAverages[i].averageBattles | percent}}</h5>
+        </button>
+      </div>
+      <div>
+        <h6>Losses</h6>
+        <button mat-stroked-button class="red-background">
+          <h4>{{pageAverages[i].averageLosses}}</h4>
+          <h5>{{pageAverages[i].averageLosses / pageAverages[i].averageBattles | percent}}</h5>
+        </button>
+      </div>
+      <div>
+        <h6>Unused battles</h6>
+        <button mat-stroked-button class="light-grey-background">
+          <h4>{{pageAverages[i].averageUnusedBattles}}</h4>
+          <h5>{{pageAverages[i].averageUnusedBattles / pageAverages[i].averageBattles | percent}}</h5>
+        </button>
+      </div>
+      <div>
+        <h6>Battles</h6>
+        <h4>{{pageAverages[i].averageBattles}}</h4>
+      </div>
+      <div>
+        <h6>Participants</h6>
+        <h4>{{pageAverages[i].averageParticipants}}</h4>
       </div>
     </div>
-    <div class="warlog-item-label-and-value-pair">
-      <h6>Losses</h6>
+    <mat-divider class="small dashed"></mat-divider>
+    <div>
+      Chart component
+    </div>
+  </div>
+  <div class="warlog-item" *ngFor="let warlogItem of page; let i = index;">
+    <mat-divider></mat-divider>
+    <div class="warlog-item-information">
       <div>
-        <i class="h4 red-background">close</i>
-        <h5>{{warlogItem.losses}}</h5>
+        <h6>Rank</h6>
+        <h4>{{warlogItem.rankFormatted}}</h4>
+      </div>
+      <div>
+        <h6>Trophy change</h6>
+        <h4 [ngClass]="warlogItem.trophyChangeTextColorClass">
+          {{warlogItem.trophyChange > 0 ? '+' : ''}}{{warlogItem.trophyChange}}</h4>
+      </div>
+      <div>
+        <h6>New trophies</h6>
+        <h5>{{warlogItem.trophies}}</h5>
       </div>
     </div>
-    <div class="warlog-item-label-and-value-pair ">
-      <h6>Battles played</h6>
+    <div class="warlog-win-loss-bar-button-row">
+      <shared-win-loss-chart [wins]="warlogItem.wins" [losses]="warlogItem.losses"
+        [totalBattles]="warlogItem.highestNumberOfParticipants">
+      </shared-win-loss-chart>
+      <button mat-icon-button><i>bar_chart</i></button>
+    </div>
+    <div class="warlog-item-information">
       <div>
-        <i class="h4 light-grey-background">people</i>
-        <h5>{{warlogItem.battlesPlayed}}/{{warlogItem.numberOfParticipants}}</h5>
+        <h6>Battles played</h6>
+        <h5>{{warlogItem.battlesPlayed}}</h5>
+      </div>
+      <div>
+        <h6>Unused battles</h6>
+        <h5>{{warlogItem.highestNumberOfParticipants - warlogItem.battlesPlayed}}</h5>
+      </div>
+      <div>
+        <h6>Total battles</h6>
+        <h5>{{warlogItem.highestNumberOfParticipants}}</h5>
       </div>
     </div>
   </div>
+  <button mat-raised-button (click)="getNextPageOfWarlogItems()"
+    *ngIf="i === paginatedWarlogItems.length - 1 && !warlogSubscription" class="full-width-button show-more-button">Show
+    more</button>
+  <shared-loading-indicator [verticalMargin]="false"
+    *ngIf="i === paginatedWarlogItems.length - 1 && warlogSubscription">Retrieving warlog
+  </shared-loading-indicator>
 </div>

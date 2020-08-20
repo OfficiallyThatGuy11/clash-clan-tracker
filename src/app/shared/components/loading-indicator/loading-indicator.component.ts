@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'shared-loading-indicator',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: [ './loading-indicator.component.scss' ]
 })
 export class LoadingIndicatorComponent implements OnInit {
+	@Input() verticalMargin = true;
+
 	constructor() {}
 
 	ngOnInit() {}

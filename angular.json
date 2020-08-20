@@ -63,7 +63,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "clash-clan-tracker:build:production"
+              "browserTarget": "clash-clan-tracker:build:production",
+              "proxyConfig": "src/proxy.conf.prod.json"
             }
           }
         },

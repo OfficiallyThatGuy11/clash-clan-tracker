@@ -1,25 +1,37 @@
+.member-list-card-content>*+*:not(.toggle-button-row) {
+  margin-top: 0.8rem;
+}
+
 .clan-rank-number {
-  width: 1.5em;
+  width: 2rem;
 }
-
-.member-list-table-donations-ratio {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-
-  >*+* {
-    margin-left: 0.4em;
-  }
-
-  h6+h6 {
-    border-top: 1px solid rgba(0, 0, 0, 0.4);
-    padding-top: 0.2em;
-    margin-top: 0.2em;
-  }
-}
-
 
 .no-results-message {
-  margin: 8em auto;
+  margin: 8rem auto;
   width: fit-content;
 }
+
+.mat-column-clanRank {
+  width: 2rem;
+}
+
+.mat-column-trophies {
+  width: 4rem;
+}
+
+// @media only screen and (max-width: 800px) {
+
+//   .table-filters-row {
+
+//     &,
+//     div {
+//       flex-flow: column wrap;
+//       align-items: flex-start;
+//     }
+
+//     *+*:not([class^=mat-form]):not([class^=mat-button]) {
+//       margin-left: 0;
+//       margin-top: 0.8em;
+//     }
+//   }
+// }

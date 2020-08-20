@@ -4,6 +4,7 @@ import { ClanWarlogStanding } from '../../models/clan-warlog-standing.model';
 import { ClanWarlogItem } from '../../models/clan-warlog-item.model';
 import { ClanWarParticipant } from '../../models/clan-war-participant.model';
 import { checkAndUpdateBinding } from '@angular/core/src/view/util';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'clan-warlog',
@@ -12,28 +13,47 @@ import { checkAndUpdateBinding } from '@angular/core/src/view/util';
 })
 export class ClanWarlogComponent implements OnInit, OnChanges {
 	@Input() clanTag: string;
-	clanWarlogItems: Array<ClanWarlogItem>;
-	clanSpecificWarlogItems: Array<ClanSpecificWarlogItem>;
-	averageWins: number;
-	averageLosses: number;
-	averageParticipants: number;
+	paginatedWarlogItems = new Array<Array<ClanSpecificWarlogItem>>();
+	pageAverages = new Array<{
+		averageWins: number,
+		averageLosses: number,
+		averageParticipants: number,
+		averageBattles: number,
+		averageUnusedBattles: number,
+	}>();
+
+	warlogSubscription: Subscription;
+	
 
 	constructor(private warlogService: WarlogService) {}
 
-	ngOnInit() {}
-
-	ngOnChanges(changes: SimpleChanges): void {
-		if (changes['clanTag']) {
-			this.warlogService.getClanWarlog(this.clanTag).subscribe((res) => this.processWarlogData(res));
+	ngOnInit() { }
+	
+	ngOnDestroy(): void {
+		if (this.warlogSubscription && !this.warlogSubscription.closed) {
+			this.warlogSubscription.unsubscribe();
 		}
 	}
 
-	processWarlogData(clanWarlogItems: Array<ClanWarlogItem>): void {
-		this.clanWarlogItems = clanWarlogItems;
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes['clanTag']) {
+			this.getNextPageOfWarlogItems();
+		}
+	}
 
+	getNextPageOfWarlogItems(): void {
+		this.warlogSubscription = this.warlogService.getClanWarlog(this.clanTag, this.paginatedWarlogItems.length + 1).subscribe((res) => {
+			this.warlogSubscription = undefined;
+			this.processWarlogData(res);
+		});
+	}
+
+	processWarlogData(clanWarlogItems: Array<ClanWarlogItem>): void {
 		const wins = [];
 		const losses = [];
 		const participants = [];
+		const numberOfBattles = [];
+		const numberOfUnusedBattles = [];
 		const clanSpecificWarlogItemsArray = new Array<ClanSpecificWarlogItem>();
 		clanWarlogItems.forEach((item) => {
 			let clanStanding: ClanWarlogStanding;
@@ -70,11 +90,13 @@ export class ClanWarlogComponent implements OnInit, OnChanges {
 				name: clanStanding.clan.name,
 				wins: clanStanding.clan.wins,
 				losses: clanStanding.clan.battlesPlayed - clanStanding.clan.wins,
+				trophies: clanStanding.clan.clanScore,
 				trophyChange: clanStanding.trophyChange,
 				trophyChangeTextColorClass: clanTrophyChangeTextColor,
 				createdDate: item.createdDate,
 				participants: item.participants,
 				numberOfParticipants: item.participants.length,
+				highestNumberOfParticipants: item.highestNumberOfParticipants,
 				seasonId: item.seasonId,
 				standings: item.standings
 			} as ClanSpecificWarlogItem;
@@ -82,12 +104,20 @@ export class ClanWarlogComponent implements OnInit, OnChanges {
 			wins.push(clanSpecificWarlogItem.wins);
 			losses.push(clanSpecificWarlogItem.losses);
 			participants.push(clanSpecificWarlogItem.numberOfParticipants);
+			numberOfBattles.push(clanSpecificWarlogItem.highestNumberOfParticipants);
+			numberOfUnusedBattles.push(clanSpecificWarlogItem.highestNumberOfParticipants - clanSpecificWarlogItem.battlesPlayed);
 		});
 
-		this.averageWins = wins.reduce((a, b) => { return a + b }) / wins.length;
-		this.averageLosses = losses.reduce((a, b) => { return a + b }) / losses.length;
-		this.averageParticipants = participants.reduce((a, b) => { return a + b }) / participants.length;
-		this.clanSpecificWarlogItems = clanSpecificWarlogItemsArray;
+		const pageAverages = {
+			averageWins: wins.reduce((a, b) => { return a + b }) / wins.length,
+			averageLosses: losses.reduce((a, b) => { return a + b }) / losses.length,
+			averageParticipants: participants.reduce((a, b) => { return a + b }) / participants.length,
+			averageBattles: numberOfBattles.reduce((a, b) => { return a + b }) / numberOfBattles.length,
+			averageUnusedBattles: numberOfUnusedBattles.reduce((a, b) => { return a + b }) / numberOfBattles.length,
+		};
+		
+		this.pageAverages.push(pageAverages);
+		this.paginatedWarlogItems.push(clanSpecificWarlogItemsArray);
 	}
 }
 
@@ -101,11 +131,13 @@ export interface ClanSpecificWarlogItem {
 	name: string;
 	wins: number;
 	losses: number;
+	trophies: number;
 	trophyChange: number;
 	trophyChangeTextColorClass: 'red-text' | 'green-text' | 'faded-black-text';
 	createdDate: string;
 	participants: Array<ClanWarParticipant>;
 	numberOfParticipants: number;
+	highestNumberOfParticipants: number;
 	seasonId: number;
 	standings: Array<ClanWarlogStanding>;
 }

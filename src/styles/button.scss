@@ -1,6 +1,10 @@
 @import './colors.scss';
 
-[mat-mini-fab] {
+.full-width-button {
+  width: 100%;
+}
+
+button[mat-mini-fab] {
   background-color: $dark-grey !important;
 
   * {
@@ -8,10 +12,79 @@
   }
 }
 
-[mat-raised-button],
-[mat-stroked-button] {
-  min-width: 6.4em !important;
-  padding: 0.6em 1.6em !important;
-  line-height: 1 !important;
-  font-size: unset !important;
+button.mat-raised-button,
+button.mat-stroked-button {
+  min-width: 0;
+  padding: 0.4rem 1.6rem;
+  border-radius: 0.4rem;
+  line-height: 1;
+  font-size: unset;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  .mat-button-wrapper>*+* {
+    margin-top: 0.4rem;
+  }
+}
+
+button[mat-raised-button] {
+  background-color: $dark-grey;
+
+  * {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+button[mat-stroked-button].mat-stroked-button {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+button.mat-icon-button {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[mat-icon-button] {
+  .mat-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.button-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 -1.6rem;
+  padding: 0 0.8rem;
+
+
+  >button {
+    margin: 0 0.8rem;
+  }
+
+  +* {
+    margin-top: 0;
+  }
+}
+
+.toggle-button-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  >button:not(:first-child) {
+    border-radius: 0;
+    border-left: none;
+  }
+
+  >button:first-child {
+    border-radius: 0.4rem 0 0 0.4rem;
+  }
+
+  >button:last-child {
+    border-radius: 0 0.4rem 0.4rem 0;
+  }
 }

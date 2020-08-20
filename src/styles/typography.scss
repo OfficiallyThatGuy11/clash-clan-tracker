@@ -8,17 +8,16 @@ html {
   font-size: 100%;
 }
 
-/*16px*/
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: normal;
+  color: rgba(0, 0, 0, 0.9);
+}
 
 body {
   background-color: white;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 400;
-  line-height: 1.1;
-
-  * {
-    color: rgba(0, 0, 0, 0.7);
-  }
 
   th,
   td {
@@ -39,7 +38,7 @@ body {
 }
 
 p {
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.8rem;
 }
 
 h1,
@@ -62,43 +61,48 @@ h6,
 h1,
 .h1 {
   margin-top: 0;
-  font-size: 3.052em;
+  font-size: 2.4rem;
 }
 
 h2,
 .h2 {
-  font-size: 2.441em;
+  font-size: 1.8rem;
 }
 
 h3,
 .h3 {
-  font-size: 1.953em;
+  font-size: 1.5rem;
 }
 
 h4,
 .h4 {
-  font-size: 1.563em;
+  font-size: 1.3rem;
 }
 
 h5,
 .h5,
-.mat-tab-label-content {
-  font-size: 1.25em;
+.mat-tab-label-content,
+input {
+  font-size: 1.1rem;
 }
 
 h6,
 .h6 {
-  font-size: 0.75em;
-  color: rgba(0, 0, 0, 0.55);
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.7);
 
   &+* {
-    margin-top: 0.4em;
+    margin-top: 0.2rem;
   }
+}
+
+.mat-button-wrapper {
+  font-size: 1rem;
 }
 
 small,
 .text_small {
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }
 
 .material-icons,
@@ -109,7 +113,7 @@ i.outlined,
 i.two-tone {
   font-weight: normal;
   font-style: normal;
-  font-size: 1.8em;
+  font-size: 1.8rem;
   line-height: 1;
   letter-spacing: normal;
   text-transform: none;

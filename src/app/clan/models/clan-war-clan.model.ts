@@ -9,5 +9,6 @@ export interface ClanWarClan {
 	participants: number;
 	tag: string;
 	wins: number;
-	rank?: number;
+	losses: number;
+	rank: number;
 }

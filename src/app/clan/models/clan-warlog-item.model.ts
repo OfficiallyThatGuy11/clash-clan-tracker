@@ -6,4 +6,5 @@ export interface ClanWarlogItem {
 	participants: Array<ClanWarParticipant>;
 	seasonId: number;
 	standings: Array<ClanWarlogStanding>;
+	highestNumberOfParticipants: number;
 }

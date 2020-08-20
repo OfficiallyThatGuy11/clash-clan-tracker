@@ -1,76 +1,96 @@
-<input (keyup)="filterDataSource($event)">
-<table mat-table [dataSource]="dataSource" matSort (window:resize)="onResize()">
-  <ng-container matColumnDef="clanRank">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rank</th>
-    <td mat-cell *matCellDef="let element">
+<shared-loading-indicator *ngIf="!dataSource">Retrieving clan members</shared-loading-indicator>
+<div *ngIf="dataSource" class="member-list-card-content fade-in">
+  <div class="card-header dark-grey-background">
+    <h4>{{clanMembers.length}} Clan member{{clanMembers.length !== 1 ? 's' : ''}}</h4>
+  </div>
+  <h6>Filter by role</h6>
+  <div class="toggle-button-row">
+    <button mat-stroked-button [attr.mat-raised-button]="roleFilterValue === 'Co-leader' ? '': null"
+      (click)="roleFilterValue = 'Co-leader'; filterData()">
       <div>
-        <div class="clan-rank-number">#{{element.clanRank}}</div>
-        <i *ngIf="element.rankChangeIcon"
-          [ngClass]="element.rankChangeIcon === 'arrow_upward'? 'green-text': 'red-text'">{{element.rankChangeIcon}}</i>
+        {{numberOfCoLeaders}} Co-leaders
       </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-    <td mat-cell *matCellDef="let element">{{element.name}}</td>
-  </ng-container>
-  <ng-container matColumnDef="role">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-    <td mat-cell *matCellDef="let element">
+      <h5>
+        {{numberOfCoLeaders / clanMembers.length | percent}}
+      </h5>
+    </button>
+    <button mat-stroked-button [attr.mat-raised-button]="roleFilterValue === 'Elder' ? '': null"
+      (click)="roleFilterValue = 'Elder'; filterData()">
       <div>
-        <i *ngIf="element.role !== 'Member'" [ngClass]="element.roleIconType">account_circle</i>
-        <span>{{element.role}}</span>
+        {{numberOfElders}} Elders
       </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="donationsRatio">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-right">
+      <h5>
+        {{numberOfElders / clanMembers.length | percent}}
+      </h5>
+    </button>
+    <button mat-stroked-button [attr.mat-raised-button]="roleFilterValue === 'Member' ? '': null"
+      (click)="roleFilterValue = 'Member'; filterData()">
       <div>
-        <div>
-          Donations rating
-        </div>
-        <div class="member-list-table-donations-ratio">
+        {{numberOfMembers}} Members
+      </div>
+      <h5>
+        {{numberOfMembers / clanMembers.length | percent}}
+      </h5>
+    </button>
+  </div>
+  <div class="button-row" *ngIf="roleFilterValue">
+    <button mat-stroked-button (click)="clearFilter()" class="clear-button-container">
+      Clear filter
+    </button>
+    <div>
+      Showing {{dataSource.data.length}} out of {{clanMembers.length}} members.
+    </div>
+  </div>
+  <div>
+    <table mat-table [dataSource]="dataSource" matSort (window:resize)="onResize()">
+      <ng-container matColumnDef="clanRank">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Rank</th>
+        <td mat-cell *matCellDef="let element">
           <div>
-            <h6 class="green-text">Given</h6>
-            <h6 class="red-text">Received</h6>
+            <h5 class="clan-rank-number">#{{element.clanRank}}</h5>
+            <i *ngIf="element.rankChangeIcon"
+              [ngClass]="element.rankChangeIcon === 'arrow_upward'? 'green-text': 'red-text'">{{element.rankChangeIcon}}</i>
           </div>
-          <h5>=</h5>
-          <h5>
-            Rating
-          </h5>
-        </div>
-      </div>
-    </th>
-    <td mat-cell *matCellDef="let element" class="align-right">
-      <div class="member-list-table-donations-ratio">
-        <div>
-          <h6 class="green-text">{{element.donations}}</h6>
-          <h6 class="red-text">{{element.donationsReceived}}
-          </h6>
-        </div>
-        <h5>=</h5>
-        <h5 [ngClass]="element['donationsRatioColor']">{{element.donationsRatio}}</h5>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="expLevel">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Level</th>
-    <td mat-cell *matCellDef="let element">{{element.expLevel}}</td>
-  </ng-container>
-  <ng-container matColumnDef="trophies">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Trophies</th>
-    <td mat-cell *matCellDef="let element">
-      <div>
-        <i>emoji_events</i>
-        <span>{{element.trophies}}</span>
-      </div>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="lastSeen">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last online</th>
-    <td mat-cell *matCellDef="let element">Not implemented</td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columns"></tr>
-  <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-</table>
-<h4 class="no-results-message" *ngIf="dataSource.filteredData.length === 0">No results</h4>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+        <td mat-cell *matCellDef="let element">
+          <div>
+            <i *ngIf="element.role !== 'Member'" [ngClass]="element.roleIconType">account_circle</i>
+            <span>{{element.role}}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="donations">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-right">Donations</th>
+        <td mat-cell *matCellDef="let element" class="align-right">{{element.donations}}</td>
+      </ng-container>
+      <ng-container matColumnDef="donationsReceived">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-right">Received</th>
+        <td mat-cell *matCellDef="let element" class="align-right">{{element.donationsReceived}}</td>
+      </ng-container>
+      <ng-container matColumnDef="expLevel">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-right">Level</th>
+        <td mat-cell *matCellDef="let element" class="align-right">{{element.expLevel}}</td>
+      </ng-container>
+      <ng-container matColumnDef="trophies">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="align-right">Trophies</th>
+        <td mat-cell *matCellDef="let element" class="align-right">
+          <div>
+            <i>emoji_events</i>
+            <span>{{element.trophies}}</span>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+    <h4 class="no-results-message" *ngIf="dataSource.filteredData.length === 0">No results</h4>
+  </div>
+</div>

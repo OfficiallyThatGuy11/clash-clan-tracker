@@ -1,6 +1,7 @@
 :host {
   display: block;
   width: 100%;
+  padding: 1.6rem 0;
 }
 
 .loading-indicator-container {
@@ -9,12 +10,12 @@
   text-align: center;
 }
 
-h4 {
-  margin: 4em 0 0.2em;
+mat-progress-bar {
+  margin-left: -1.6rem;
+  margin-top: 0.8em;
+  width: calc(100% + 3.2rem);
 }
 
-mat-progress-bar {
-  margin-bottom: 8em;
-  margin-left: -1.6em;
-  width: calc(100% + 3.2em);
+.apply-vertical-margin {
+  padding: 8rem 0;
 }

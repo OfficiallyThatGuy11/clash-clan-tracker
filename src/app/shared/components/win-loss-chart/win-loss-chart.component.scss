@@ -1,0 +1,75 @@
+@import '../../../../styles/colors.scss';
+
+:host {
+  display: block;
+}
+
+.win-loss-chart {
+  position: relative;
+  display: flex;
+  flex-flow: nowrap;
+  height: 1.6rem;
+  background-color: $light-grey;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+
+  .win-loss-bar {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+
+    &:first-child {
+      border-radius: 0.35rem 0 0 0.35rem;
+    }
+
+    &:last-child {
+      border-radius: 0 0.35rem 0.35rem 0;
+    }
+
+    &:not(.red-background) {
+      justify-content: flex-end;
+    }
+
+    >div {
+      margin: 0 0.4rem;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+
+      >*+* {
+        margin-left: 0.2rem;
+      }
+    }
+  }
+
+  .win-loss-bar-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.4rem;
+  }
+
+  >* {
+    height: 100%;
+  }
+}
+
+.win-loss-key {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+
+  >div {
+    flex: 1 1 33%;
+  }
+
+  i {
+    border-radius: 0.2rem;
+    padding: 0.1rem;
+  }
+}

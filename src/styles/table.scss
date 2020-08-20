@@ -7,12 +7,12 @@ mat-header-row,
 tr[mat-header-row],
 mat-row,
 tr[mat-row] {
-  height: unset !important;
+  height: unset;
 }
 
 mat-cell.mat-cell,
 td[mat-cell].mat-cell {
-  padding: 0.8em 0 0.8em 0.8em !important;
+  padding: 0.8rem 0 0.8rem 0.8rem;
 
   >div {
     display: flex;
@@ -20,14 +20,14 @@ td[mat-cell].mat-cell {
     align-items: center;
 
     >*+* {
-      margin-left: 0.2em;
+      margin-left: 0.2rem;
     }
   }
 }
 
 mat-header-cell.mat-header-cell,
 th[mat-header-cell].mat-header-cell {
-  padding: 0.8em 0 0.8em 0.8em !important;
+  padding: 0.8rem 0 0.8rem 0.8rem;
   vertical-align: top;
 
   &.align-right>* {
@@ -38,12 +38,12 @@ th[mat-header-cell].mat-header-cell {
 
   *,
   .mat-tab-header {
-    border-color: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   *:not(i),
   .mat-tab-label>.mat-tab-label-content {
-    color: rgba(255, 255, 255, 0.9) !important;
+    color: rgba(255, 255, 255, 0.9);
   }
 
   h6 {
@@ -59,14 +59,15 @@ th[mat-header-cell] {
   white-space: nowrap;
 
   &:first-of-type {
-    padding-left: 1.6em !important;
+    padding-left: 1.6rem !important;
   }
 
   &:last-of-type {
-    padding-right: 1.6em !important;
+    padding-right: 1.6rem !important;
   }
 
   &.align-right {
+    padding-right: 0.8rem;
 
     &,
     & * {

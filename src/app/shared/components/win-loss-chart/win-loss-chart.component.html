@@ -1,0 +1,37 @@
+<div class="win-loss-chart light-grey-background">
+  <div *ngIf="wins > 0" class="win-loss-bar green-background" [style.width]="wins / totalBattles * 100 + '%'">
+    <div>
+      <h5 *ngIf="!showKey">{{wins}}</h5>
+      <i class="h4">check</i>
+    </div>
+  </div>
+  <div *ngIf="losses > 0" class="win-loss-bar red-background" [style.width]="losses / totalBattles * 100 + '%'">
+    <div>
+      <i class="h4">close</i>
+      <h5 *ngIf="!showKey">{{losses}}</h5>
+    </div>
+  </div>
+</div>
+<div *ngIf="showKey" class="win-loss-key">
+  <div class="warlog-item-label-and-value-pair">
+    <h6>Wins</h6>
+    <div class="icon-value-pair">
+      <i class="h4 green-background">check</i>
+      <h5>{{wins}}</h5>
+    </div>
+  </div>
+  <div class="warlog-item-label-and-value-pair">
+    <h6>Losses</h6>
+    <div class="icon-value-pair">
+      <i class="h4 red-background">close</i>
+      <h5>{{losses}}</h5>
+    </div>
+  </div>
+  <div class="warlog-item-label-and-value-pair ">
+    <h6>Battles played</h6>
+    <div class="icon-value-pair">
+      <i class="h4 light-grey-background">people</i>
+      <h5>{{wins + losses}}/{{totalBattles}}</h5>
+    </div>
+  </div>
+</div>

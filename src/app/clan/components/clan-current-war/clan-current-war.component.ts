@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/cor
 import { CurrentWarService } from '../../services/current-war.service';
 import { ClanCurrentWar } from '../../models/clan-current-war.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'clan-current-war',
@@ -12,8 +13,9 @@ export class ClanCurrentWarComponent implements OnInit, OnChanges {
   @Input() clanTag: string;
   clanWarData: ClanCurrentWar;
   currentlyNotInWar = false;
+  displayWarlog = false;
 
-  constructor(private clanCurrentWarService: CurrentWarService) { }
+  constructor(private clanCurrentWarService: CurrentWarService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -24,11 +26,14 @@ export class ClanCurrentWarComponent implements OnInit, OnChanges {
         if (res.state === 'notInWar') {
           this.currentlyNotInWar = true;
         }
-        res.state = res.state.replace(/([A-Z])/g, ' $1').toLocaleLowerCase();
-        res.state = res.state.charAt(0).toUpperCase() + res.state.slice(1);
+        
         this.clanWarData = res;
       });
     }
+  }
+
+  navigateToClanWarOverviewPage(clanTag: string): void {
+    this.router.navigate(['/clan-war', clanTag]);
   }
 
 }

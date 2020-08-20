@@ -1,10 +1,9 @@
 <shared-loading-indicator *ngIf="!clan">Retrieving clan data</shared-loading-indicator>
-<div class="clan-information-panel" *ngIf="clan">
-  <div class="clan-information-panel-title dark-grey-background">
-    <h4>{{clan.name}}</h4>
-    <div>{{clan.tag}}</div>
+<div class="clan-information-panel fade-in" *ngIf="clan">
+  <div class="card-header dark-grey-background">
+    <h3>{{clan.name}}</h3>
+    <h5>{{clan.tag}}</h5>
   </div>
-  <mat-divider></mat-divider>
   <div>
     <h6>Description</h6>
     <div>{{clan.description}}</div>
@@ -12,15 +11,15 @@
   <div class="top-level-information">
     <div>
       <div>
-        <h6>Trophies</h6>
-        <div>
+        <h6>War trophies</h6>
+        <div class="icon-value-pair">
           <i>emoji_events</i>
           <h4>{{clan.clanWarTrophies}}</h4>
         </div>
       </div>
       <div>
         <h6>Required trophies</h6>
-        <div>
+        <div class="icon-value-pair">
           <i class="outlined">emoji_events</i>
           <h4>{{clan.requiredTrophies}}</h4>
         </div>
@@ -29,14 +28,14 @@
     <div>
       <div>
         <h6>Members</h6>
-        <div>
+        <div class="icon-value-pair">
           <i>people</i>
           <h4>{{clan.members}}/50</h4>
         </div>
       </div>
       <div>
         <h6>Donations</h6>
-        <div>
+        <div class="icon-value-pair">
           <i>repeat</i>
           <h4>{{clan.donationsPerWeek}}</h4>
         </div>
@@ -45,18 +44,25 @@
     <div>
       <div>
         <h6>Type</h6>
-        <div>
+        <div class="icon-value-pair">
           <i>assignment_ind</i>
           <h4>{{clan.type}}</h4>
         </div>
       </div>
       <div>
         <h6>Location</h6>
-        <div>
+        <div class="icon-value-pair">
           <i>place</i>
           <h4>{{clan.location.countryCode}}</h4>
         </div>
       </div>
+    </div>
+  </div>
+  <div>
+    <h6>Clan score</h6>
+    <div class="icon-value-pair">
+      <i>military_tech</i>
+      <h4>{{clan.clanScore}}</h4>
     </div>
   </div>
   <mat-tab-group>

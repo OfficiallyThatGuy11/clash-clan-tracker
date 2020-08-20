@@ -6,4 +6,5 @@ export interface ClanWarParticipant {
 	numberOfBattles: number;
 	tag: string;
 	wins: number;
+	losses?: number;
 }

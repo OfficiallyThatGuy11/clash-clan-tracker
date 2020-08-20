@@ -3,9 +3,11 @@ import { ClanWarClan } from './clan-war-clan.model';
 
 export interface ClanCurrentWar {
   state: string;
+  stateFormatted?: string;
   clan: ClanWarClan;
   participants: Array<ClanWarParticipant>,
-  clans: Array<ClanWarClan>,
+  clans?: Array<ClanWarClan>,
   collectionEndTime: string,
   warEndTime: string,
+  highestNumberOfParticipants?: number;
 }

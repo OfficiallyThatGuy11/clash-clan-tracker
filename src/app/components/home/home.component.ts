@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ClanService } from 'src/app/clan/services/clan.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-home',
@@ -7,7 +7,11 @@ import { ClanService } from 'src/app/clan/services/clan.service';
 	styleUrls: [ './home.component.scss' ]
 })
 export class HomeComponent implements OnInit {
-	constructor() {}
+	constructor(private router: Router) {}
 
-	ngOnInit() {}
+	ngOnInit() { }
+	
+	navigateToClanPage(tag: string) {
+		this.router.navigateByUrl(`clan/${tag}`);
+	}
 }

@@ -10,5 +10,7 @@ export class ClanInformationPanelComponent implements OnInit {
 
 	constructor() {}
 
-	ngOnInit() {}
+	ngOnInit() {
+		console.log()
+	}
 }

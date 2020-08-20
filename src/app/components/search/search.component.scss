@@ -1,0 +1,102 @@
+@import '../../../styles/colors.scss';
+
+:host {}
+
+.search-box-and-results {
+  position: relative;
+  z-index: 2;
+}
+
+.search-box {
+
+  &--loading-padding {
+    padding-left: 3rem;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-icon {
+  position: absolute;
+  top: calc(50% - 0.9rem);
+  left: 0.8rem;
+  color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  animation: spin 1s forwards infinite linear;
+  transition: opacity 0.1s linear;
+
+  &--show {
+    opacity: 1;
+  }
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.8rem;
+  min-width: 100%;
+  border: 0.2rem solid $light-grey;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  background-color: white;
+  color: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  z-index: 2;
+  box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.2);
+}
+
+.search-results-item {
+  padding: 0.8rem;
+  cursor: pointer;
+  border-top: 1px solid $light-grey;
+
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  white-space: nowrap;
+
+  &__value {
+    width: 10rem;
+  }
+
+  &--no-click {
+    cursor: auto;
+  }
+
+  >* {
+    flex: 1 1 100%;
+  }
+
+  &>*+* {
+    margin-left: 0.8rem;
+  }
+
+}
+
+.search-click-catcher {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.2s linear;
+
+  &--show {
+    opacity: 1;
+    pointer-events: all;
+  }
+}

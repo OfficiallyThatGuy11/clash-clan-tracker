@@ -3,52 +3,50 @@
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.8em;
+  padding: 0.4rem;
 
   mat-card {
-    margin: 0.8em;
+    margin: 0.4rem;
   }
 }
 
 mat-card {
-  padding: 0.8em 1.6em !important;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  padding: 0.8rem 1.6rem !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   transition: 0.3s;
   overflow: hidden;
 
-  &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
-  }
-
   mat-divider.mat-divider {
     position: relative !important;
-    margin-left: -1.6em;
-    width: calc(100% + 3.2em) !important;
+    margin-left: -1.6rem;
+    width: calc(100% + 3.2rem) !important;
   }
 
   mat-tab-group.mat-tab-group {
-    margin-left: -1.6em;
-    margin-right: -1.6em;
-    margin-bottom: -0.8em;
+    margin-left: -1.6rem;
+    margin-right: -1.6rem;
+    margin-bottom: -0.8rem;
 
     .mat-tab-header {
-      border: 0 solid rgba(255, 255, 255, 0.3) !important;
-      overflow: unset;
-      background-color: $dark-grey;
+      border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+      // overflow: unset;
+      // background-color: $dark-grey;
 
-      *,
-      .mat-tab-header {
-        border-color: rgba(255, 255, 255, 0.2) !important;
-      }
+      // *,
+      // .mat-tab-header {
+      //   border-color: rgba(255, 255, 255, 0.2) !important;
+      // }
 
-      *:not(i),
-      .mat-tab-label>.mat-tab-label-content {
-        color: rgba(255, 255, 255, 0.9) !important;
-      }
+      // *:not(i),
+      // .mat-tab-label>.mat-tab-label-content {
+      //   color: rgba(255, 255, 255, 0.9) !important;
+      // }
 
-      h6 {
-        color: rgba(255, 255, 255, 0.4) !important;
-      }
+      // h6 {
+      //   color: rgba(255, 255, 255, 0.4) !important;
+      // }
     }
 
     .mat-tab-label-container {
@@ -58,20 +56,21 @@ mat-card {
     .mat-tab-label {
       height: unset !important;
       min-width: unset;
+      padding: 0 1.6rem;
 
-      &.mat-tab-label-active {
-        background-color: rgba(0, 0, 0, 0.2);
-      }
+      // &.mat-tab-label-active {
+      //   background-color: rgba(0, 0, 0, 0.2);
+      // }
     }
 
     .mat-tab-label-content {
-      margin: 0.8em 0;
+      margin: 0.4rem 0;
       user-select: none;
-      color: rgba(0, 0, 0, 0.8) !important;
+      // color: rgba(0, 0, 0, 0.8) !important;
     }
 
     .mat-tab-body {
-      padding: 0.8em 1.6em;
+      padding: 0.8rem 1.6rem;
     }
 
     .mat-tab-body-content {
@@ -84,15 +83,29 @@ mat-card {
     }
 
     .mat-ink-bar {
-      background-color: rgba(255, 255, 255, 0.7) !important;
-      height: 0.3em;
-      border-radius: 0.2em 0.2em 0 0 !important;
+      background-color: $dark-grey !important;
+      height: 0.2rem;
+      border-radius: 0.2rem 0.2rem 0 0 !important;
       transform: rotateY(45deg);
     }
   }
 
   table {
-    margin: 0 -1.6em -0.8em !important;
+    margin: 0 -1.6rem -0.8rem !important;
     width: calc(100% + 3.2rem);
+  }
+}
+
+.card-header {
+  margin: -0.8rem -1.6rem 0;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  // height: 2.6em;
+
+  >*+* {
+    margin-left: 1.6rem;
   }
 }
