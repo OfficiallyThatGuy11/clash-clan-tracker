@@ -1,17 +1,8 @@
 @import '../../../styles/colors.scss';
 
-:host {}
-
 .search-box-and-results {
   position: relative;
   z-index: 2;
-}
-
-.search-box {
-
-  &--loading-padding {
-    padding-left: 3rem;
-  }
 }
 
 @keyframes spin {
@@ -24,63 +15,100 @@
   }
 }
 
-.loading-icon {
+.input-icon {
   position: absolute;
-  top: calc(50% - 0.9rem);
-  left: 0.8rem;
-  color: rgba(0, 0, 0, 0.8);
+  top: calc(50% - 0.8rem);
+  left: 0.4rem;
   opacity: 0;
-  animation: spin 1s forwards infinite linear;
   transition: opacity 0.1s linear;
+  pointer-events: none;
 
   &--show {
     opacity: 1;
+    pointer-events: all;
   }
 }
 
-.search-results {
+.loading-icon {
+  animation: spin 1s forwards infinite linear;
+}
+
+.clear-icon {
+  left: unset;
+  right: 0.4rem;
+  cursor: pointer;
+}
+
+.search-results-container {
   position: absolute;
   top: 100%;
   right: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.search-results {
   margin-top: 0.8rem;
-  min-width: 100%;
-  border: 0.2rem solid $light-grey;
+  max-width: calc(100vw - 1.6rem);
   border-radius: 0.4rem;
-  box-sizing: border-box;
   background-color: white;
   color: rgba(0, 0, 0, 0.9);
-  overflow: hidden;
+  overflow-x: visible;
   z-index: 2;
   box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: all;
+  &.recently-visited-results .search-results-item {
+    padding: 0.4rem 0.4rem 0.4rem 0.8rem;
+
+    &--no-click {
+      padding: 0.4rem;
+      margin-left: -2.2rem;
+    }
+  }
 }
 
 .search-results-item {
-  padding: 0.8rem;
-  cursor: pointer;
-  border-top: 1px solid $light-grey;
-
   display: flex;
   flex-flow: row;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  padding: 0.8rem;
   white-space: nowrap;
+  cursor: pointer;
 
-  &__value {
-    width: 10rem;
+  > * {
+    text-align: right;
+    margin: 0;
+
+    &:first-child {
+      text-align: left;
+      flex: 1 1 auto;
+    }
+  }
+
+  & + & {
+    border-top: 1px solid $light-grey;
+  }
+
+  &:hover:not(&--no-click) {
+    background-color: rgba(0, 0, 0, 0.05);
   }
 
   &--no-click {
     cursor: auto;
+    margin-left: -2.6rem;
+    border-radius: 0.4rem 0.4rem 0 0.4rem;
   }
 
-  >* {
-    flex: 1 1 100%;
+  > * + * {
+    width: 4rem;
   }
 
-  &>*+* {
+  & > * + * {
     margin-left: 0.8rem;
   }
-
 }
 
 .search-click-catcher {
@@ -91,7 +119,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   transition: opacity 0.2s linear;
 
@@ -99,4 +127,8 @@
     opacity: 1;
     pointer-events: all;
   }
+}
+
+.icon-value-pair > * + * {
+  margin-left: 0.8rem;
 }

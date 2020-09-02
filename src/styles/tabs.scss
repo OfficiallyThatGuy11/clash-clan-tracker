@@ -1,0 +1,66 @@
+@import './colors.scss';
+
+mat-tab-group.mat-tab-group {
+  margin-left: -1.6rem;
+  margin-right: -1.6rem;
+
+  &:last-child {
+    margin-bottom: -0.8rem;
+  }
+}
+
+.mat-tab-label-container {
+  overflow: unset;
+}
+
+.mat-tab-labels {
+  background-color: $dark-grey;
+}
+
+div.mat-tab-label {
+  opacity: 1;
+  height: auto;
+  padding: 0.4rem 0.8rem;
+  margin: 0.4rem 0;
+  min-width: unset;
+  border-radius: 0.8rem;
+
+  &:first-child {
+    margin-left: 0.8rem;
+  }
+
+  &:last-child {
+    margin-right: 0.8rem;
+  }
+
+  &.mat-tab-disabled {
+    opacity: 0.5;
+  }
+}
+
+.mat-tab-label > .mat-ripple-element {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mat-tab-label-content {
+  color: rgba(255, 255, 255, 0.9);
+  user-select: none;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: $light-grey;
+  height: 0.4rem;
+  border-radius: 0.4rem 0.4rem 0 0;
+  transform: rotateY(30deg);
+  margin-bottom: -0.1rem;
+}
+
+div.mat-tab-body-content {
+  padding: 0.8rem 1.6rem;
+  height: unset;
+
+  > * {
+    display: inline-block;
+    width: 100%;
+  }
+}

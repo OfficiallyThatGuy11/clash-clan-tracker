@@ -4,7 +4,7 @@ table[mat-table] {
 }
 
 mat-header-row,
-tr[mat-header-row],
+tr.mat-header-row[mat-header-row],
 mat-row,
 tr[mat-row] {
   height: unset;
@@ -14,12 +14,12 @@ mat-cell.mat-cell,
 td[mat-cell].mat-cell {
   padding: 0.8rem 0 0.8rem 0.8rem;
 
-  >div {
+  > div {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
 
-    >*+* {
+    > * + * {
       margin-left: 0.2rem;
     }
   }
@@ -30,7 +30,7 @@ th[mat-header-cell].mat-header-cell {
   padding: 0.8rem 0 0.8rem 0.8rem;
   vertical-align: top;
 
-  &.align-right>* {
+  &.align-right > * {
     margin-right: -18px;
   }
 
@@ -42,7 +42,7 @@ th[mat-header-cell].mat-header-cell {
   }
 
   *:not(i),
-  .mat-tab-label>.mat-tab-label-content {
+  .mat-tab-label > .mat-tab-label-content {
     color: rgba(255, 255, 255, 0.9);
   }
 
@@ -52,19 +52,11 @@ th[mat-header-cell].mat-header-cell {
 }
 
 mat-cell,
-td[mat-cell],
+td.mat-cell[mat-cell],
 mat-header-cell,
-th[mat-header-cell] {
+th.mat-header-cell[mat-header-cell] {
   font-size: unset !important;
   white-space: nowrap;
-
-  &:first-of-type {
-    padding-left: 1.6rem !important;
-  }
-
-  &:last-of-type {
-    padding-right: 1.6rem !important;
-  }
 
   &.align-right {
     padding-right: 0.8rem;
@@ -74,9 +66,17 @@ th[mat-header-cell] {
       text-align: right;
     }
 
-    >* {
+    > * {
       width: fit-content;
       margin-left: auto;
     }
+  }
+
+  &:first-of-type {
+    padding-left: 1.6rem;
+  }
+
+  &:last-of-type {
+    padding-right: 1.6rem;
   }
 }

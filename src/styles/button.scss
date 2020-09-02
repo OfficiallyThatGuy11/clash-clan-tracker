@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+button {
+  transition: all 0.2s ease-in-out;
+}
+
 button[mat-mini-fab] {
   background-color: $dark-grey !important;
 
@@ -22,7 +26,7 @@ button.mat-stroked-button {
   text-transform: uppercase;
   font-weight: bold;
 
-  .mat-button-wrapper>*+* {
+  .mat-button-wrapper > * + * {
     margin-top: 0.4rem;
   }
 }
@@ -40,6 +44,9 @@ button[mat-stroked-button].mat-stroked-button {
 }
 
 button.mat-icon-button {
+  width: 2.4rem;
+  height: 2.4rem;
+  line-height: 1;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -51,40 +58,62 @@ button.mat-icon-button {
   }
 }
 
-.button-row {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 0 -1.6rem;
-  padding: 0 0.8rem;
-
-
-  >button {
-    margin: 0 0.8rem;
-  }
-
-  +* {
-    margin-top: 0;
-  }
-}
-
 .toggle-button-row {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
   align-items: center;
 
-  >button:not(:first-child) {
+  > button:not(:first-child) {
     border-radius: 0;
     border-left: none;
   }
 
-  >button:first-child {
+  > button:first-child {
     border-radius: 0.4rem 0 0 0.4rem;
   }
 
-  >button:last-child {
+  > button:last-child {
     border-radius: 0 0.4rem 0.4rem 0;
+  }
+}
+
+a {
+  position: relative;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%;
+
+  &:after {
+    content: '';
+    z-index: -1;
+    border-radius: 0.4rem;
+    transition: all 0.1s ease-in-out;
+    position: absolute;
+    height: 0;
+    background-color: rgba($dark-grey, 0.5);
+    left: 0;
+    top: calc(100% - 0.1rem);
+    width: 100%;
+  }
+
+  &:hover,
+  &:focus {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.4rem;
+    margin: -0.4rem;
+
+    &:after {
+      margin: 0;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: $dark-grey;
+    }
   }
 }

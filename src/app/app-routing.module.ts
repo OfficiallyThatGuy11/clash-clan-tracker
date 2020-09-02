@@ -9,30 +9,30 @@ const defaultPath = '/home';
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'clan/:tag',
-    component: ClanOverviewComponent
+    component: ClanOverviewComponent,
   },
   {
     path: 'player/:tag',
-    component: PlayerOverviewComponent
+    component: PlayerOverviewComponent,
   },
   {
     path: '',
     redirectTo: defaultPath,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: '**',
     redirectTo: defaultPath,
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

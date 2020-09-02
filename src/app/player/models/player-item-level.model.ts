@@ -3,7 +3,7 @@ export interface PlayerItemLevel {
   count: number;
   level: number;
   starLevel: number;
-  name: any;
+  name: string;
   maxLevel: number;
-  iconUrls: any;
+  iconUrls: object;
 }

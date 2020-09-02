@@ -1,22 +1,32 @@
 import {
-  animation, trigger, state,
-  style, transition, animate
-} from "@angular/animations";
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
-export const fadeExpandHeight =
-  trigger('fadeExpandHeight', [
-    state('show', style({
+export const fadeExpandHeight = trigger('fadeExpandHeight', [
+  state(
+    'show',
+    style({
       height: '*',
-      opacity: '1'
-    })),
-    state('hide', style({
+      opacity: '1',
+    })
+  ),
+  state(
+    'hide',
+    style({
       height: '0',
       opacity: '0',
-      width: '100%',
       borderWidth: '0',
       boxShadow: 'none',
-    })),
-    transition('* => *', [
-      animate('0.15s ease-in-out')
-    ])
-  ]);
+      marginTop: '0',
+      marginBottom: '0',
+      paddingTop: '0',
+      paddingBottom: '0',
+      pointerEvents: 'none',
+    })
+  ),
+  transition('* => *', [animate('0.1s ease-in-out')]),
+]);

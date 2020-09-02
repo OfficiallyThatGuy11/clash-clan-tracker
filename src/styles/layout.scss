@@ -1,9 +1,13 @@
 @import './colors.scss';
 
+html {
+  position: relative;
+}
+
 body {
   margin: 0;
   background-color: $silver-grey;
-  position: relative;
+  min-height: 100vh;
 }
 
 .red-background {
@@ -18,7 +22,8 @@ body {
   background-color: $light-grey;
 }
 
-.dark-grey-background {
+.dark-grey-background,
+.mat-stroked-button.dark-grey-background {
   background-color: $dark-grey;
 }
 
@@ -27,21 +32,25 @@ body {
 }
 
 .dark-grey-background,
-.dark-blue-background {
+.dark-blue-background,
+.mat-stroked-button.dark-grey-background {
+  color: rgba(255, 255, 255, 0.9);
 
-  *,
-  .mat-tab-header {
-    border-color: rgba(255, 255, 255, 0.2) !important;
+  .mat-select-value {
+    color: rgba(255, 255, 255, 0.9);
   }
 
-  *:not(i),
-  .mat-tab-label>.mat-tab-label-content {
-    color: rgba(255, 255, 255, 0.9) !important;
+  input ~ i,
+  h6,
+  .mat-select-arrow,
+  i {
+    color: rgba(255, 255, 255, 0.6);
   }
+}
 
-  h6 {
-    color: rgba(255, 255, 255, 0.4) !important;
-  }
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background-color: $dark-grey;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .icon-value-pair {
@@ -49,7 +58,11 @@ body {
   flex-flow: nowrap;
   align-items: center;
 
-  >*+* {
+  > * {
+    margin-top: 0;
+  }
+
+  > * + * {
     margin-left: 0.4rem;
   }
 }
@@ -69,6 +82,11 @@ mat-divider {
   }
 }
 
+mat-progress-bar.mat-progress-bar {
+  height: 0.8rem;
+  border-radius: 0.4rem;
+}
+
 .mat-form-field-infix {
   border-top-width: 0 !important;
 }
@@ -79,20 +97,6 @@ mat-divider {
 
 .mat-form-field-underline {
   bottom: 0 !important;
-}
-
-.card-header {
-  .mat-form-field-underline {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-  }
-
-  .mat-form-field-ripple {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-  }
-
-  input {
-    caret-color: rgba(255, 255, 255, 0.8) !important;
-  }
 }
 
 @keyframes fadeIn {
@@ -107,4 +111,52 @@ mat-divider {
 
 .fade-in {
   animation: fadeIn 0.2s linear 0s 1 forwards;
+}
+
+.row-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-left: -1.6rem;
+
+  > * {
+    margin-left: 1.6rem;
+  }
+}
+
+.align-right {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.button-row,
+.input-row {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  &.input-row {
+    margin: 0 0 0 -1.6rem;
+    > * {
+      padding-top: 0.8rem;
+      padding-left: 1.6rem;
+    }
+  }
+
+  & .input-row {
+    margin: 0;
+  }
+
+  &.button-row {
+    align-items: center;
+    margin: 0.4rem -0.4rem -0.4rem;
+
+    > * {
+      margin: 0.4rem;
+    }
+  }
+
+  + * {
+    margin-top: 0;
+  }
 }

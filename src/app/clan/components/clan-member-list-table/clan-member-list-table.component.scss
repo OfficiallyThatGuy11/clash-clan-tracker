@@ -1,4 +1,6 @@
-.member-list-card-content>*+*:not(.toggle-button-row) {
+.member-list-card-content
+  > *:not(h6)
+  + *:not(.input-row):not(.button-row):not(.warning-box) {
   margin-top: 0.8rem;
 }
 
@@ -17,6 +19,29 @@
 
 .mat-column-trophies {
   width: 4rem;
+}
+
+.trophies-input {
+  width: 4rem;
+}
+
+mat-slider {
+  margin-left: 0.8rem;
+}
+
+.warning-box {
+  position: relative;
+  margin: 0 -1.6rem;
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.close-button {
+  align-self: flex-start;
 }
 
 // @media only screen and (max-width: 800px) {

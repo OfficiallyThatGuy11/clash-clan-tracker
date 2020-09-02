@@ -1,8 +1,14 @@
 <div class="cards-grid">
   <mat-card class="clan-information-panel-card">
-    <clan-information-panel [clan]="clan"></clan-information-panel>
+    <clan-information-panel
+      *ngIf="!unloadComponents"
+      [clan]="clan"
+    ></clan-information-panel>
   </mat-card>
   <mat-card class="clan-member-list-table-card">
-    <clan-member-list-table [clanMembers]="clan?.memberList"></clan-member-list-table>
+    <clan-member-list-table
+      *ngIf="!unloadComponents"
+      [clan]="clan"
+    ></clan-member-list-table>
   </mat-card>
 </div>

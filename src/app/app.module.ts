@@ -9,8 +9,8 @@ import { SearchComponent } from './components/search/search.component';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-	declarations: [ AppComponent, HomeComponent, HeaderComponent, SearchComponent ],
-	imports: [ AppRoutingModule, SharedModule, ClanModule ],
-	bootstrap: [ AppComponent ]
+  declarations: [AppComponent, HomeComponent, HeaderComponent, SearchComponent],
+  imports: [AppRoutingModule, SharedModule, ClanModule],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

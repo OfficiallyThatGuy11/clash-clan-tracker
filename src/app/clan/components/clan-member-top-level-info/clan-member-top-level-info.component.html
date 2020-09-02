@@ -1,0 +1,23 @@
+<div class="info-row" *ngIf="clanMember">
+  <div>
+    <h6>Trophies</h6>
+    <div class="icon-value-pair">
+      <i>emoji_events</i>
+      <span>{{ clanMember.trophies }}</span>
+    </div>
+  </div>
+  <div>
+    <h6>Level</h6>
+    <div class="icon-value-pair">
+      <i>grade</i>
+      <span>{{ clanMember.expLevel }}</span>
+    </div>
+  </div>
+  <div>
+    <h6>Role</h6>
+    <div class="icon-value-pair">
+      <i>assignment_ind</i>
+      <span>{{ clanMember.role }}</span>
+    </div>
+  </div>
+</div>

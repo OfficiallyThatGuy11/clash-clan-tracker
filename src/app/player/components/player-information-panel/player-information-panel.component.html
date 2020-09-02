@@ -1,0 +1,61 @@
+<shared-loading-indicator *ngIf="!player"
+  >Loading player data
+</shared-loading-indicator>
+
+<div class="player-information-panel fade-in" *ngIf="player">
+  <div class="card-header dark-grey-background">
+    <div>{{ player.name }}</div>
+    <h5>{{ player.tag }}</h5>
+  </div>
+  <div class="top-level-information">
+    <div>
+      <div>
+        <h6>Trophies</h6>
+        <div class="icon-value-pair">
+          <i class="h3">emoji_events</i>
+          <h5>{{ player.trophies }}</h5>
+        </div>
+      </div>
+      <div>
+        <h6>Best trophies</h6>
+        <div class="icon-value-pair">
+          <i class="h3 outlined">emoji_events</i>
+          <h5>{{ player.bestTrophies }}</h5>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h6>Level</h6>
+        <div class="icon-value-pair">
+          <i class="h3 outlined">star</i>
+          <h5>{{ player.expLevel }}</h5>
+        </div>
+      </div>
+      <div>
+        <h6>Clan</h6>
+        <div class="icon-value-pair">
+          <i class="h3">military_tech</i>
+          <h5></h5>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div>
+        <h6></h6>
+      </div>
+    </div>
+  </div>
+  <div class="card-header-small dark-grey-background">Clan</div>
+  <div class="top-level-information">
+    <div>
+      <div>
+        <h6>Clan</h6>
+        <div class="icon-value-pair">
+          <i class="h3">groups</i>
+          <h5>{{ player.clan.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

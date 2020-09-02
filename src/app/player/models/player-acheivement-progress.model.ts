@@ -1,8 +1,8 @@
 export interface PlayerAchievementProgress {
   stars: number;
   value: number;
-  name: any;
+  name: string;
   target: number;
-  info: any;
-  completionInfo: any;
+  info: string;
+  completionInfo: string;
 }

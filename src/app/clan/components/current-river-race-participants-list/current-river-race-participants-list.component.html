@@ -1,0 +1,72 @@
+<div class="card-header-small dark-grey-background">
+  <h6>{{ clan.name }}'s {{ clan.participants.length }} participants</h6>
+  <h6 *ngIf="clanDetail">
+    Avg trophies: {{ clanDetail.averagePlayerTrophies }}
+  </h6>
+</div>
+<div class="participant-list">
+  <ng-container
+    *ngFor="let participant of clan.participants; let index = index"
+  >
+    <mat-divider *ngIf="index > 0"></mat-divider>
+    <div class="participant-row">
+      <div>#{{ index + 1 }}</div>
+      <div class="name-element">
+        <a (click)="navigateToPlayer(participant.tag)">
+          {{ participant.name }}
+        </a>
+      </div>
+      <div class="icon-value-pair">
+        <i class="small-icon">military_tech</i>
+        <div>{{ participant.fame }}</div>
+      </div>
+      <div class="icon-value-pair">
+        <i class="small-icon">directions_boat</i>
+        <div>{{ participant.repairPoints }}</div>
+      </div>
+      <div>
+        <div
+          class="icon-value-pair"
+          *ngIf="
+            clanMembersIndexedByTag && clanMembersIndexedByTag[participant.tag]
+          "
+        >
+          <i>history</i>
+          <h6>
+            {{ clanMembersIndexedByTag[participant.tag].lastSeenTimeAgo }}
+          </h6>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-icon-button
+          (click)="toggleExpandedClan(participant.tag)"
+          [ngClass]="{
+            'dark-grey-background': expandedPlayerTag === participant.tag
+          }"
+        >
+          <i>
+            {{
+              expandedPlayerTag !== participant.tag
+                ? 'keyboard_arrow_down'
+                : 'keyboard_arrow_up'
+            }}
+          </i>
+        </button>
+      </div>
+    </div>
+    <div
+      [@fadeExpandHeight]="
+        expandedPlayerTag === participant.tag ? 'show' : 'hide'
+      "
+    >
+      <mat-divider class="dashed"></mat-divider>
+      <clan-member-top-level-info
+        *ngIf="
+          clanMembersIndexedByTag && clanMembersIndexedByTag[participant.tag]
+        "
+        [clanMember]="clanMembersIndexedByTag[participant.tag]"
+      ></clan-member-top-level-info>
+    </div>
+  </ng-container>
+</div>

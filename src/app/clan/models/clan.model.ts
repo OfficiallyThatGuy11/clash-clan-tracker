@@ -3,7 +3,10 @@ interface Clan {
   tag: string;
   clanWarTrophies: number;
   requiredTrophies: number;
+  averagePlayerTrophies: number;
   donationsPerWeek: number;
+  donationsPerWeekFromCurrentMembers: number;
+  averageDonationsFromCurrentMembers: number;
   clanChestMaxLevel: number;
   clanChestStatus: string;
   clanChestLevel: number;
@@ -15,5 +18,5 @@ interface Clan {
   members: number;
   description: string;
   clanChestPoints: number;
-  badgeUrls: any;
+  badgeUrls: object;
 }

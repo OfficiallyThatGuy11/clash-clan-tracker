@@ -1,0 +1,19 @@
+.player-information-panel {
+  > * + *:not(.top-level-information) {
+    margin-top: 0.8rem;
+  }
+}
+
+.top-level-information {
+  display: flex;
+  flex-flow: row wrap;
+  text-transform: capitalize;
+
+  > div {
+    flex: 1 1 auto;
+
+    > div {
+      margin-top: 0.8rem;
+    }
+  }
+}

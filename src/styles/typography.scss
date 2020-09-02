@@ -8,21 +8,13 @@ html {
   font-size: 100%;
 }
 
-body {
+body,
+.mat-card {
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: normal;
-  color: rgba(0, 0, 0, 0.9);
-}
-
-body {
-  background-color: white;
-
-  th,
-  td {
-    color: rgba(0, 0, 0, 0.7) !important;
-  }
+  color: rgba(0, 0, 0, 0.8);
 }
 
 @media only screen and (max-width: 800px) {
@@ -70,7 +62,8 @@ h2,
 }
 
 h3,
-.h3 {
+.h3,
+.card-header {
   font-size: 1.5rem;
 }
 
@@ -81,18 +74,22 @@ h4,
 
 h5,
 .h5,
+input,
+.card-header-small,
 .mat-tab-label-content,
-input {
+mat-select.mat-select {
   font-size: 1.1rem;
+  font-weight: 400;
 }
 
 h6,
-.h6 {
+.h6,
+button.mat-sort-header-button {
   font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.7);
 
-  &+* {
-    margin-top: 0.2rem;
+  & + *:not(.mat-sort-header-arrow) {
+    margin-top: 0.4rem;
   }
 }
 
@@ -108,9 +105,9 @@ small,
 .material-icons,
 i,
 .material-icons-outlined,
-i.outlined,
+.outlined,
 .material-icons-two-tone,
-i.two-tone {
+.two-tone {
   font-weight: normal;
   font-style: normal;
   font-size: 1.8rem;
@@ -125,12 +122,21 @@ i.two-tone {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   font-feature-settings: 'liga';
+  user-select: none;
+
+  &.white-icon {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &.small-icon {
+    font-size: 1.6rem;
+  }
 }
 
 .material-icons,
 i {
   font-family: 'Material Icons';
-
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .material-icons-outlined,

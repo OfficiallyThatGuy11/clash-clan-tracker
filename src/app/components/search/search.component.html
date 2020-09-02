@@ -1,32 +1,117 @@
 <div class="search-box-and-results">
-  <input class="search-box" placeholder="Find your clan" (keyup)="searchKeyupEvent($event)"
-    (click)="displaySearchResults = searchResults ? true : false"
-    [ngClass]="{'invalid': currentPage && !inputEmpty && !inputValid, 'hide-focus-color': displaySearchResults, 'search-box--loading-padding': searchResultsSubscription && !searchResultsSubscription.closed}">
-  <div class="search-results" [@fadeExpandHeight]="displaySearchResults ? 'show' : 'hide'">
-    <div class="search-results-item search-results-item--no-click" *ngIf="searchResults && !searchResults.length">
-      No clans found.
-    </div>
-    <div class="search-results-item search-results-item--no-click" *ngIf="searchResults && searchResults.length">
-      Search results
-    </div>
-    <div class="search-results-item" *ngFor="let clan of currentPage" (click)="navigateToClan(clan.tag)">
-      <div>
-        <h6>{{clan.tag}}</h6>
-        <h4>{{clan.name}}</h4>
+  <i
+    class="input-icon loading-icon"
+    [ngClass]="{
+      'input-icon--show':
+        searchResultsSubscription && !searchResultsSubscription.closed,
+      'white-icon': displaySearchResults
+    }"
+  >
+    loop
+  </i>
+  <input
+    class="search-box"
+    placeholder="Clan search"
+    [value]="searchTerm"
+    (keyup)="searchKeyupEvent($event)"
+    (click)="hideAllResults = false; getRecentlyVisitedClans(searchTerm)"
+    [ngClass]="{
+      'hide-focus-color dark-grey-background': displaySearchResults,
+      'input-left-icon-padding':
+        searchResultsSubscription && !searchResultsSubscription.closed,
+      'input-right-icon-padding': searchTerm
+    }"
+  />
+  <i
+    class="input-icon clear-icon"
+    [ngClass]="{
+      'input-icon--show': searchTerm || (!hideAllResults && displayRecentClans),
+      'white-icon': displaySearchResults
+    }"
+    (click)="clearInput()"
+  >
+    {{ searchTerm ? 'close' : 'expand_less' }}
+  </i>
+  <div
+    class="search-results-container"
+    [@fadeExpandHeight]="!hideAllResults ? 'show' : 'hide'"
+  >
+    <div
+      class="search-results recently-visited-results"
+      [@fadeExpandHeight]="
+        !hideAllResults && displayRecentClans ? 'show' : 'hide'
+      "
+    >
+      <div
+        class="search-results-item search-results-item--no-click dark-grey-background"
+      >
+        <div class="icon-value-pair">
+          <i>history</i>
+          <h5>Recently visited clans</h5>
+        </div>
       </div>
-      <div class="search-results-item__value">
-        <h6>War trophies</h6>
-        <h4>{{clan.clanWarTrophies}}</h4>
+      <div
+        class="search-results-item"
+        *ngFor="let clan of recentlyVisitedClans"
+        (click)="navigateToClan(clan.tag)"
+      >
+        <h5>{{ clan.name }}</h5>
+        <h6>{{ clan.tag }}</h6>
+        <i
+          (click)="
+            removeClanFromRecentlyVisitedClans(clan); $event.stopPropagation()
+          "
+          >close</i
+        >
       </div>
-      <div class="search-results-item__value">
-        <h6>Required trophies</h6>
-        <h4>{{clan.requiredTrophies}}</h4>
+    </div>
+    <div
+      class="search-results"
+      [@fadeExpandHeight]="
+        !hideAllResults && displaySearchResults ? 'show' : 'hide'
+      "
+      (@fadeExpandHeight.done)="searchResultsAnimationEvent($event)"
+    >
+      <div
+        class="search-results-item search-results-item--no-click"
+        *ngIf="searchResults && !searchResults.length"
+      >
+        No clans found.
+      </div>
+      <div
+        class="search-results-item search-results-item--no-click dark-grey-background"
+        *ngIf="searchResults && searchResults.length"
+      >
+        <div class="icon-value-pair">
+          <i>search</i>
+          <h5>Search results</h5>
+        </div>
+        <h6>Trophies</h6>
+        <h6>Members</h6>
+      </div>
+      <div
+        class="search-results-item"
+        *ngFor="let clan of currentPage"
+        (click)="navigateToClan(clan.tag)"
+      >
+        <div>
+          <h4>{{ clan.name }}</h4>
+        </div>
+        <div class="search-results-item__value">
+          <h4>{{ clan.clanWarTrophies }}</h4>
+        </div>
+        <div class="search-results-item__value">
+          <h4>{{ clan.members }}</h4>
+        </div>
       </div>
     </div>
   </div>
-  <i class="loading-icon"
-    [ngClass]="{'loading-icon--show': searchResultsSubscription && !searchResultsSubscription.closed}">loop</i>
 </div>
-<div class="search-click-catcher" [ngClass]="{'search-click-catcher--show': displaySearchResults}"
-  (click)="displaySearchResults = false">
-</div>
+<div
+  class="search-click-catcher"
+  [ngClass]="{
+    'search-click-catcher--show':
+      !hideAllResults && (displayRecentClans || displaySearchResults)
+  }"
+  (click)="hideAllResults = true"
+></div>

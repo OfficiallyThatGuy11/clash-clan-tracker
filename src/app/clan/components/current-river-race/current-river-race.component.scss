@@ -1,0 +1,78 @@
+.clan-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  h6 {
+    margin-top: 0;
+  }
+
+  > * {
+    width: 6rem;
+
+    &.name-element {
+      margin-left: -0.4rem;
+      padding: 0.4rem;
+
+      > * {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: inline-block;
+        max-width: 100%;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-left: 0.8rem;
+    }
+
+    &:not(:nth-child(2)) {
+      flex: 1 1 1%;
+    }
+
+    &:first-child {
+      flex: 0 0 2rem;
+    }
+
+    &:last-child {
+      text-align: right;
+      flex: unset;
+      width: auto;
+    }
+  }
+}
+
+mat-progress-bar {
+  margin-top: 0.8rem;
+}
+
+mat-divider {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.participant-list {
+  margin: 0 -1.6rem -0.8rem;
+  padding: 0 1.6rem;
+  overflow: hidden;
+
+  > * {
+    margin-top: 0.8rem;
+  }
+}
+
+.participants-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0.8rem -1.6rem 0;
+  padding: 0.4rem 1.6rem;
+  cursor: pointer;
+
+  > i {
+    margin: 0 0.3rem 0 1.6rem;
+  }
+}

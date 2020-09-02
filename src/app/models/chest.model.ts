@@ -1,5 +1,5 @@
 export interface Chest {
-  name: any;
+  name: string;
   index: number;
-  iconUrls: any;
+  iconUrls: object;
 }

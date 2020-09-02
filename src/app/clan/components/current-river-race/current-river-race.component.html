@@ -1,0 +1,75 @@
+<shared-loading-indicator *ngIf="!currentRiverRace">
+  Loading current race
+</shared-loading-indicator>
+<div *ngIf="currentRiverRace">
+  <ng-container *ngFor="let clan of currentRiverRace.clans; let index = index">
+    <mat-divider *ngIf="index > 0"></mat-divider>
+    <div
+      class="clan-row"
+      [ngClass]="{ h5: clan.name === currentRiverRace.clan.name }"
+      [id]="'current-race-clan-row-' + clan.tag"
+    >
+      <div>
+        {{ clan.rankFormatted }}
+      </div>
+      <div class="name-element">
+        <div *ngIf="clan.name === currentRiverRace.clan.name">
+          {{ clan.name }}
+        </div>
+        <a
+          *ngIf="clan.name !== currentRiverRace.clan.name"
+          (click)="navigateToClan(clan.tag)"
+        >
+          {{ clan.name }}
+        </a>
+      </div>
+      <div class="icon-value-pair">
+        <i class="small-icon">military_tech</i>
+        <div>{{ clan.fame }}</div>
+      </div>
+      <div class="icon-value-pair">
+        <i class="small-icon">directions_boat</i>
+        <div>{{ clan.repairPoints }}</div>
+      </div>
+      <div class="icon-value-pair">
+        <i class="small-icon">people</i>
+        <div>{{ clan.participants.length }}</div>
+      </div>
+      <div>
+        <button
+          mat-icon-button
+          (click)="
+            expandedClan = clan.tag !== expandedClan ? clan.tag : undefined
+          "
+          [ngClass]="{ 'dark-grey-background': clan.tag === expandedClan }"
+        >
+          <i>
+            {{
+              clan.tag !== expandedClan
+                ? 'keyboard_arrow_down'
+                : 'keyboard_arrow_up'
+            }}
+          </i>
+        </button>
+      </div>
+    </div>
+    <mat-progress-bar [value]="(clan.fame / 50000) * 100"></mat-progress-bar>
+    <div
+      class="participant-list"
+      [@fadeExpandHeight]="
+        expandedClan && expandedClan === clan.tag ? 'show' : 'hide'
+      "
+    >
+      <current-river-race-participants-list
+        [clan]="clan"
+      ></current-river-race-participants-list>
+      <div
+        class="participants-footer dark-grey-background"
+        (click)="collapseClan(clan.tag)"
+      >
+        <h6>Close {{ clan.name }}'s race participants</h6>
+        <i>keyboard_arrow_up</i>
+      </div>
+    </div>
+  </ng-container>
+</div>

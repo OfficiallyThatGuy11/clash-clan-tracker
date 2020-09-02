@@ -1,6 +1,6 @@
 export interface Item {
-  iconUrls: any;
-  name: any;
+  iconUrls: object;
+  name: string;
   id: number;
   maxLevel: number;
 }

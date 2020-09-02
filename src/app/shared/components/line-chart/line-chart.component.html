@@ -1,0 +1,17 @@
+<shared-loading-indicator *ngIf="loadingMessage && !data">
+  {{ loadingMessage }}
+</shared-loading-indicator>
+<div #chartsContainer *ngIf="data">
+  <canvas
+    baseChart
+    [datasets]="data"
+    [labels]="chartLabels"
+    [options]="lineChartOptions"
+    [colors]="lineChartColors"
+    [legend]="lineChartLegend"
+    [plugins]="lineChartPlugins"
+    [chartType]="lineChartType"
+    height="200"
+  >
+  </canvas>
+</div>

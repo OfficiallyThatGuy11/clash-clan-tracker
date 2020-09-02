@@ -1,0 +1,57 @@
+:host {
+  display: block;
+}
+
+.card-header-small {
+  margin-top: 0;
+}
+
+.participant-list {
+  margin: 0 -1.6rem -0.8rem;
+  padding: 0 1.6rem;
+}
+
+.participant-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+
+  h6 {
+    margin-top: 0;
+  }
+
+  > * {
+    flex: 1 1 1%;
+
+    + * {
+      margin-left: 0.8rem;
+    }
+
+    &.name-element {
+      padding: 0.4rem;
+      width: 16%;
+
+      > * {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    &:first-child {
+      flex: 0 0 2rem;
+    }
+
+    &:last-child {
+      flex: unset;
+      width: auto;
+      text-align: right;
+    }
+  }
+}
+
+clan-member-top-level-info {
+  padding: 0.8rem 0;
+}

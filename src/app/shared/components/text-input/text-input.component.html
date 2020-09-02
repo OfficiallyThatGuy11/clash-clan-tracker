@@ -1,0 +1,15 @@
+<input
+  [placeholder]="placeholder"
+  [value]="value"
+  (keyup)="updateValueFromEvent($event)"
+  [ngClass]="{
+    'dark-grey-background': value,
+    'input-right-icon-padding': value
+  }"
+/>
+<i
+  (click)="resetValue()"
+  class="clear-icon"
+  [ngClass]="{ 'clear-icon--show': value }"
+  >close</i
+>
