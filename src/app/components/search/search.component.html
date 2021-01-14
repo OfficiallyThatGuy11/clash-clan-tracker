@@ -1,4 +1,7 @@
-<div class="search-box-and-results">
+<div
+  class="search-box-and-results"
+  [ngClass]="{ 'elevate-z': displaySearchResults || displayRecentClans }"
+>
   <i
     class="input-icon loading-icon"
     [ngClass]="{

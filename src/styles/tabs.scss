@@ -14,7 +14,7 @@ mat-tab-group.mat-tab-group {
 }
 
 .mat-tab-labels {
-  background-color: $dark-grey;
+  background-color: $card-header-background;
 }
 
 div.mat-tab-label {
@@ -55,9 +55,19 @@ div.mat-tab-label {
   margin-bottom: -0.1rem;
 }
 
+div.mat-tab-body-wrapper,
+mat-tab-body.mat-tab-body.mat-tab-body-active {
+  position: static;
+}
+
+mat-tab-body:not(.mat-tab-body-active) {
+  display: none;
+}
+
 div.mat-tab-body-content {
   padding: 0.8rem 1.6rem;
   height: unset;
+  overflow: visible;
 
   > * {
     display: inline-block;

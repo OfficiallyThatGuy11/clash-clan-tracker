@@ -1,3 +1,5 @@
+@import '../../../../styles/colors.scss';
+
 .clan-row {
   display: flex;
   flex-flow: row nowrap;
@@ -32,10 +34,6 @@
       flex: 1 1 1%;
     }
 
-    &:first-child {
-      flex: 0 0 2rem;
-    }
-
     &:last-child {
       text-align: right;
       flex: unset;
@@ -44,8 +42,16 @@
   }
 }
 
-mat-progress-bar {
+.clan-row,
+.row-nowrap {
+  > *:first-child {
+    width: 0 0 3rem;
+  }
+}
+
+.row-nowrap {
   margin-top: 0.8rem;
+  align-items: center;
 }
 
 mat-divider {
@@ -53,26 +59,31 @@ mat-divider {
   margin-bottom: 0.8rem;
 }
 
-.participant-list {
-  margin: 0 -1.6rem -0.8rem;
-  padding: 0 1.6rem;
-  overflow: hidden;
+current-river-race-clan-item {
+  border-radius: 0;
+  transition: border-radius 0.1s;
 
-  > * {
-    margin-top: 0.8rem;
+  &.elevate-z {
+    background-color: $card-background;
+    border-radius: 0.8rem;
+    overflow: hidden;
   }
 }
 
-.participants-footer {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 0.8rem -1.6rem 0;
-  padding: 0.4rem 1.6rem;
-  cursor: pointer;
+.clan-current-race-click-catcher {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s;
 
-  > i {
-    margin: 0 0.3rem 0 1.6rem;
+  &.show-click-catcher {
+    opacity: 1;
+    pointer-events: all;
   }
 }

@@ -2,7 +2,8 @@
 
 .search-box-and-results {
   position: relative;
-  z-index: 2;
+  border-radius: 0.4rem;
+  display: inline-block;
 }
 
 @keyframes spin {
@@ -56,7 +57,6 @@
   background-color: white;
   color: rgba(0, 0, 0, 0.9);
   overflow-x: visible;
-  z-index: 2;
   box-shadow: 0px 0px 8px 4px rgba(0, 0, 0, 0.2);
   pointer-events: all;
   &.recently-visited-results .search-results-item {
@@ -113,7 +113,7 @@
 
 .search-click-catcher {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   top: 0;
   left: 0;

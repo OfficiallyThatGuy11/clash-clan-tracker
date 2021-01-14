@@ -21,11 +21,27 @@ body,
   html {
     font-size: 80%;
   }
+
+  .hide-when-below-800 {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 70%;
+  }
 }
 
 @media only screen and (max-width: 440px) {
   html {
-    font-size: 70%;
+    font-size: 65%;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  html {
+    font-size: 55%;
   }
 }
 
@@ -93,7 +109,13 @@ button.mat-sort-header-button {
   }
 }
 
-.mat-button-wrapper {
+b,
+.bold {
+  font-weight: 600;
+}
+
+.mat-button-wrapper,
+.mat-tab-label-content {
   font-size: 1rem;
 }
 
@@ -158,6 +180,10 @@ i.two-tone {
 
 .green-text {
   color: $green;
+
+  h6 {
+    color: rgba($green, 0.6);
+  }
 }
 
 .red-text {

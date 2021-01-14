@@ -2,37 +2,38 @@
   >Retrieving clan members</shared-loading-indicator
 >
 <div *ngIf="dataSource" class="member-list-card-content fade-in">
-  <div class="card-header dark-grey-background">
-    <div>
-      {{ clan.memberList.length }} member{{
-        clan.memberList.length !== 1 ? 's' : ''
-      }}
-    </div>
-    <h6>Avg trophies: {{ clan.averagePlayerTrophies }}</h6>
-    <h6>Avg donations: {{ clan.averageDonationsFromCurrentMembers }}</h6>
-  </div>
   <div
-    class="warning-box"
-    [@fadeExpandHeight]="filtersLoadedFromSessionStorage ? 'show' : 'hide'"
+    class="warning-element-highlight-box warning-background message-box"
+    *ngIf="showFiltersLoadedFromSessionStorage === true"
   >
-    <div class="warning-messages">
-      <!-- <h6>
-        Hiding in {{ filtersLoadedFromSessionStorageCountdownValue }} seconds.
-    </h6> -->
-      <div class="icon-value-pair">
-        <i>info</i>
-        <span>
-          Previous filters for this clan were saved and have been reloaded.
-        </span>
-      </div>
+    <div class="icon-value-pair">
+      <i class="h3">history</i>
+      <h6>Previous filters for this clan were saved and have been reloaded.</h6>
+      <i
+        (click)="showFiltersLoadedFromSessionStorage = false"
+        class="cursor-pointer"
+        >close</i
+      >
     </div>
-    <button mat-icon-button class="close-button">
-      <i (click)="filtersLoadedFromSessionStorage = false">close</i>
-    </button>
   </div>
-  <div class="input-row">
-    <div>
-      <h6>Filter by name</h6>
+  <div class="row-nowrap">
+    <div
+      [ngClass]="{
+        'warning-element-highlight-box warning-background':
+          filtersLoadedFromSessionStorage?.nameSearchValue
+      }"
+    >
+      <h6 class="icon-value-pair">
+        <i
+          class="h6"
+          *ngIf="
+            filtersLoadedFromSessionStorage?.nameSearchValue &&
+            !showFiltersLoadedFromSessionStorage
+          "
+          >history</i
+        >
+        <h6>Filter by name</h6>
+      </h6>
       <shared-text-input
         placeholder="Member name"
         [value]="nameSearchValue"
@@ -46,39 +47,75 @@
       /> -->
     </div>
     <div class="row-nowrap">
-      <div>
-        <h6>Trophies above</h6>
+      <div
+        [ngClass]="{
+          'warning-element-highlight-box warning-background':
+            filtersLoadedFromSessionStorage?.minTrophiesFilterValue
+        }"
+      >
+        <h6 class="icon-value-pair">
+          <i
+            class="h6"
+            *ngIf="
+              filtersLoadedFromSessionStorage?.minTrophiesFilterValue &&
+              !showFiltersLoadedFromSessionStorage
+            "
+            >history</i
+          >
+          <h6>Trophies above</h6>
+        </h6>
         <mat-select
           [placeholder]="lowestTrophies"
           [value]="minTrophiesFilterValue"
           (valueChange)="minTrophiesFilterValue = $event; filterData()"
           [ngClass]="{
-            'dark-grey-background': minTrophiesFilterValue !== lowestTrophies
+            'dark-grey-background':
+              minTrophiesFilterValue &&
+              minTrophiesFilterValue !== lowestTrophies
           }"
         >
-          <mat-option [value]="null">Any</mat-option>
           <mat-option
-            *ngFor="let value of minTrophySelectRange"
+            *ngFor="let value of maxTrophySelectRange"
             [value]="value"
+            [disabled]="value >= maxTrophiesFilterValue"
           >
             {{ value }}
           </mat-option>
+          <mat-option [value]="lowestTrophies">Any</mat-option>
         </mat-select>
       </div>
-      <div>
-        <h6>Trophies below</h6>
+      <div
+        [ngClass]="{
+          'warning-element-highlight-box warning-background':
+            filtersLoadedFromSessionStorage?.maxTrophiesFilterValue
+        }"
+      >
+        <h6 class="icon-value-pair">
+          <i
+            class="h6"
+            *ngIf="
+              filtersLoadedFromSessionStorage?.maxTrophiesFilterValue &&
+              !showFiltersLoadedFromSessionStorage
+            "
+            >history</i
+          >
+          <h6>Trophies below</h6>
+        </h6>
         <mat-select
           [placeholder]="highestTrophies"
           [value]="maxTrophiesFilterValue"
           (valueChange)="maxTrophiesFilterValue = $event; filterData()"
           [ngClass]="{
-            'dark-grey-background': maxTrophiesFilterValue !== highestTrophies
+            'dark-grey-background':
+              maxTrophiesFilterValue &&
+              maxTrophiesFilterValue !== highestTrophies
           }"
         >
-          <mat-option [value]="null">Any</mat-option>
+          <mat-option [value]="highestTrophies">Any</mat-option>
           <mat-option
             *ngFor="let value of maxTrophySelectRange"
             [value]="value"
+            [disabled]="value <= minTrophiesFilterValue"
           >
             {{ value }}
           </mat-option>
@@ -86,41 +123,60 @@
       </div>
     </div>
   </div>
-  <h6>Filter by role</h6>
-  <div class="toggle-button-row">
-    <button
-      mat-stroked-button
-      [attr.mat-raised-button]="roleFilterValue === 'Co-leader' ? '' : null"
-      (click)="selectRoleFilter('Co-leader')"
-    >
-      <div>{{ numberOfCoLeaders }} Co-leaders</div>
-      <h5>
-        {{ numberOfCoLeaders / clan.memberList.length | percent }}
-      </h5>
-    </button>
-    <button
-      mat-stroked-button
-      [attr.mat-raised-button]="roleFilterValue === 'Elder' ? '' : null"
-      (click)="selectRoleFilter('Elder')"
-    >
-      <div>{{ numberOfElders }} Elders</div>
-      <h5>
-        {{ numberOfElders / clan.memberList.length | percent }}
-      </h5>
-    </button>
-    <button
-      mat-stroked-button
-      [attr.mat-raised-button]="roleFilterValue === 'Member' ? '' : null"
-      (click)="selectRoleFilter('Member')"
-    >
-      <div>{{ numberOfMembers }} Members</div>
-      <h5>
-        {{ numberOfMembers / clan.memberList.length | percent }}
-      </h5>
-    </button>
+
+  <div
+    class="display-inline-block"
+    [ngClass]="{
+      'warning-element-highlight-box warning-background':
+        filtersLoadedFromSessionStorage?.roleFilterValue
+    }"
+  >
+    <h6 class="icon-value-pair">
+      <i
+        class="h6"
+        *ngIf="
+          filtersLoadedFromSessionStorage?.roleFilterValue &&
+          !showFiltersLoadedFromSessionStorage
+        "
+        >history</i
+      >
+      <h6>Filter by role</h6>
+    </h6>
+    <div class="toggle-button-row">
+      <button
+        mat-stroked-button
+        [attr.mat-raised-button]="roleFilterValue === 'coLeader' ? '' : null"
+        (click)="selectRoleFilter('coLeader')"
+      >
+        <div>{{ numberOfCoLeaders }} Co-leaders</div>
+        <h5>
+          {{ numberOfCoLeaders / clan.memberList.length | percent }}
+        </h5>
+      </button>
+      <button
+        mat-stroked-button
+        [attr.mat-raised-button]="roleFilterValue === 'elder' ? '' : null"
+        (click)="selectRoleFilter('elder')"
+      >
+        <div>{{ numberOfElders }} Elders</div>
+        <h5>
+          {{ numberOfElders / clan.memberList.length | percent }}
+        </h5>
+      </button>
+      <button
+        mat-stroked-button
+        [attr.mat-raised-button]="roleFilterValue === 'member' ? '' : null"
+        (click)="selectRoleFilter('member')"
+      >
+        <div>{{ numberOfMembers }} Members</div>
+        <h5>
+          {{ numberOfMembers / clan.memberList.length | percent }}
+        </h5>
+      </button>
+    </div>
   </div>
+
   <ng-container *ngIf="dataSource.data !== clan.memberList">
-    <mat-divider class="dashed"></mat-divider>
     <div class="button-row">
       <button
         mat-stroked-button
@@ -130,11 +186,14 @@
         Clear filter
       </button>
       <h6>
-        Showing ({{ dataSource.data.length / clan.members | percent }})
-        {{ dataSource.data.length }}/{{ clan.members }} member{{
+        Showing {{ dataSource.data.length }}/{{ clan.members }} member{{
           clan.members !== 1 ? 's' : ''
         }}.
       </h6>
+      <h6>{{ dataSource.data.length / clan.members | percent }}</h6>
+      <mat-progress-bar
+        [value]="(dataSource.data.length / clan.members) * 100"
+      ></mat-progress-bar>
     </div>
   </ng-container>
   <div>
@@ -167,19 +226,7 @@
           <a (click)="navigateToPlayer(element.tag)">
             {{ element.name }}
           </a>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
-        <td mat-cell *matCellDef="let element">
-          <div>
-            <i
-              *ngIf="element.role !== 'Member'"
-              [ngClass]="element.roleIconType"
-              >account_circle</i
-            >
-            <span>{{ element.role }}</span>
-          </div>
+          <h6 class="bold">{{ element.roleFormatted }}</h6>
         </td>
       </ng-container>
       <ng-container matColumnDef="lastSeenTimeAgo">
@@ -192,7 +239,11 @@
           Last seen
         </th>
         <td mat-cell *matCellDef="let element" class="align-right">
-          <h6>{{ element.lastSeenTimeAgo }}</h6>
+          <h6 *ngIf="element.lastSeenTimeAgo.length">
+            {{ element.lastSeenTimeAgo[0] }}
+            {{ element.lastSeenTimeAgo[1] ? element.lastSeenTimeAgo[1] : '' }}
+          </h6>
+          <h6 *ngIf="!element.lastSeenTimeAgo.length">Online</h6>
         </td>
       </ng-container>
       <ng-container matColumnDef="donations">
@@ -248,10 +299,12 @@
           mat-sort-header
           class="align-right"
         >
-          Level
+          <div>Level</div>
         </th>
         <td mat-cell *matCellDef="let element" class="align-right">
-          {{ element.expLevel }}
+          <div [ngClass]="{ h6: element.expLevel === 13 }">
+            {{ element.expLevel }}
+          </div>
         </td>
       </ng-container>
       <ng-container matColumnDef="trophies">
@@ -266,7 +319,8 @@
         <td mat-cell *matCellDef="let element" class="align-right">
           <div
             [ngClass]="{
-              'red-text': element.trophies < clan.requiredTrophies
+              'red-text': element.trophies < clan.requiredTrophies,
+              'green-text': element.trophies > clan.averagePlayerTrophies
             }"
           >
             <i>emoji_events</i>

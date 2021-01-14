@@ -18,14 +18,20 @@ $clash-clan-tracker-accent: mat-palette($mat-pink, A200, A100, A400);
 $clash-clan-tracker-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$clash-clan-tracker-theme: mat-light-theme($clash-clan-tracker-primary, $clash-clan-tracker-accent, $clash-clan-tracker-warn);
+$clash-clan-tracker-theme: mat-light-theme(
+  $clash-clan-tracker-primary,
+  $clash-clan-tracker-accent,
+  $clash-clan-tracker-warn
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($clash-clan-tracker-theme);
 
-$custom-typography: mat-typography-config($font-family: 'inherit');
+$custom-typography: mat-typography-config(
+  $font-family: 'inherit',
+);
 @include mat-core($custom-typography);
 
 @import './styles/typography.scss';
@@ -35,3 +41,10 @@ $custom-typography: mat-typography-config($font-family: 'inherit');
 @import './styles/button.scss';
 @import './styles/input.scss';
 @import './styles/tabs.scss';
+
+.disable-child-transitions {
+  &,
+  & * {
+    transition: none !important;
+  }
+}

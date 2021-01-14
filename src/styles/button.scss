@@ -9,8 +9,6 @@ button {
 }
 
 button[mat-mini-fab] {
-  background-color: $dark-grey !important;
-
   * {
     color: rgba(255, 255, 255, 0.8) !important;
   }
@@ -25,6 +23,7 @@ button.mat-stroked-button {
   font-size: unset;
   text-transform: uppercase;
   font-weight: bold;
+  min-height: 2.4rem;
 
   .mat-button-wrapper > * + * {
     margin-top: 0.4rem;
@@ -32,18 +31,18 @@ button.mat-stroked-button {
 }
 
 button[mat-raised-button] {
-  background-color: $dark-grey;
-
   * {
     color: rgba(255, 255, 255, 0.9);
   }
 }
 
-button[mat-stroked-button].mat-stroked-button {
+button[mat-stroked-button] {
   border-color: rgba(0, 0, 0, 0.2);
+  background: white;
 }
 
 button.mat-icon-button {
+  background: rgba(255, 255, 255, 0.9);
   width: 2.4rem;
   height: 2.4rem;
   line-height: 1;
@@ -55,6 +54,10 @@ button.mat-icon-button {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    i {
+      line-height: 1;
+    }
   }
 }
 
@@ -88,32 +91,12 @@ a {
   overflow: hidden;
   display: inline-block;
   max-width: 100%;
+  border-radius: 0.4rem;
 
-  &:after {
-    content: '';
-    z-index: -1;
-    border-radius: 0.4rem;
-    transition: all 0.1s ease-in-out;
-    position: absolute;
-    height: 0;
-    background-color: rgba($dark-grey, 0.5);
-    left: 0;
-    top: calc(100% - 0.1rem);
-    width: 100%;
-  }
-
-  &:hover,
-  &:focus {
+  &:hover {
+    background-color: $card-header-background;
     color: rgba(255, 255, 255, 0.9);
-    padding: 0.4rem;
-    margin: -0.4rem;
-
-    &:after {
-      margin: 0;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background-color: $dark-grey;
-    }
+    padding: 0.2rem 0.4rem;
+    margin: -0.2rem -0.4rem;
   }
 }

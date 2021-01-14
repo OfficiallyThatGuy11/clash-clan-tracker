@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'clan-member-top-level-info',
@@ -35,4 +36,8 @@ export class ClanMemberTopLevelInfoComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  // navigateToPlayer(): void {
+  //   this.router.navigateByUrl(`player/${this.clanMember.tag}`);
+  // }
 }

@@ -1,9 +1,9 @@
 import { PlayerClan } from './player-clan.model';
 import { PlayerLeagueStatistics } from './player-league-statistics.model';
-import { PlayerItemLevel } from './player-item-level.model';
 import { PlayerAchievementBadge } from './player-acheivement-badge.model';
 import { PlayerAchievementProgress } from './player-acheivement-progress.model';
 import { Item } from 'src/app/models/item.model';
+import { PlayerCard } from './player-card';
 
 export interface Player {
   clan: PlayerClan;
@@ -13,7 +13,7 @@ export interface Player {
   losses: number;
   totalDonations: number;
   leagueStatistics: PlayerLeagueStatistics;
-  cards: Array<PlayerItemLevel>;
+  cards: Array<PlayerCard>;
   currentFavouriteCard: Item;
   badges: Array<PlayerAchievementBadge>;
   tag: string;
@@ -30,7 +30,7 @@ export interface Player {
   challengeMaxWins: number;
   tournamentCardsWon: number;
   tournamentBattleCount: number;
-  currentDeck: Array<PlayerItemLevel>;
+  currentDeck: Array<PlayerCard>;
   warDayWins: number;
   clanCardsCollected: number;
   starPoints: number;

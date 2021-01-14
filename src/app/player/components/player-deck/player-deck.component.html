@@ -1,0 +1,20 @@
+<div class="cards-container">
+  <ng-container *ngFor="let card of playerDeck">
+    <!-- <mat-card class="player-card align-center dark-grey-background">
+      <h6>{{ card.name }}</h6>
+      <div class="player-card-image-container">
+      <img class="player-card-image" [src]="card.iconUrls['medium']" />
+      <div class="card-picture-border"></div>
+      </div>
+      <div class="player-card-label dark-grey-background">
+        <h6>Level {{ card.maxLevel }}</h6>
+      </div>
+      <div class="player-card-star-level" *ngIf="card.starLevel">
+        <i *ngFor="let index of [].constructor(card.starLevel)">star</i>
+      </div>
+    </mat-card> -->
+    <div class="player-card">
+      <img [src]="card.iconUrls['medium']" />
+    </div>
+  </ng-container>
+</div>

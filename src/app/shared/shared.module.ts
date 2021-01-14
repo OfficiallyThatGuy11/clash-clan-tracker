@@ -24,6 +24,8 @@ import { LineChartComponent } from './components/line-chart/line-chart.component
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule } from '@angular/forms';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { RadarChartComponent } from './components/radar-chart/radar-chart.component';
+import { SharedScatterChartComponent } from './components/shared-scatter-chart/shared-scatter-chart.component';
 
 const imports = [
   BrowserModule,
@@ -51,10 +53,12 @@ const declarations = [
   WinLossChartComponent,
   LineChartComponent,
   TextInputComponent,
+  RadarChartComponent,
+  SharedScatterChartComponent,
 ];
 
 @NgModule({
-  declarations: [...declarations, WinLossChartComponent],
+  declarations: [...declarations],
   imports: [...imports],
   exports: [...declarations, ...imports],
   providers: [HttpClient],

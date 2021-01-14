@@ -4,6 +4,7 @@
 
 .card-header-small {
   margin-top: 0;
+  height: unset;
 }
 
 .participant-list {
@@ -41,17 +42,26 @@
     }
 
     &:first-child {
-      flex: 0 0 2rem;
+      flex: 0 0 1.6rem;
+    }
+    &:nth-child(2) {
+      flex: 0 0 4rem;
     }
 
+    // &:nth-child(3) {
+    //   flex: 0 0 4rem;
+    // }
+
     &:last-child {
-      flex: unset;
-      width: auto;
-      text-align: right;
+      flex: 0 0 3.2rem;
     }
   }
 }
 
 clan-member-top-level-info {
   padding: 0.8rem 0;
+}
+
+.thicker-border {
+  border-top-width: 0.2rem;
 }

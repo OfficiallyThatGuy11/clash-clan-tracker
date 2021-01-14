@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Player } from '../../models/player.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'player-information-panel',
@@ -15,12 +16,16 @@ import { Player } from '../../models/player.model';
 export class PlayerInformationPanelComponent implements OnInit, OnChanges {
   @Input() player: Player;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.player.previousValue !== changes.player.currentValue) {
     }
+  }
+
+  navigateToClan(clanTag: string): void {
+    this.router.navigateByUrl(`clan/${clanTag}`);
   }
 }

@@ -9,6 +9,7 @@ import { RiverRaceService } from './services/river-race.service';
 import { CurrentRiverRaceComponent } from './components/current-river-race/current-river-race.component';
 import { CurrentRiverRaceParticipantsListComponent } from './components/current-river-race-participants-list/current-river-race-participants-list.component';
 import { ClanMemberTopLevelInfoComponent } from './components/clan-member-top-level-info/clan-member-top-level-info.component';
+import { CurrentRiverRaceClanItemComponent } from './components/current-river-race-clan-item/current-river-race-clan-item.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { ClanMemberTopLevelInfoComponent } from './components/clan-member-top-le
     CurrentRiverRaceComponent,
     CurrentRiverRaceParticipantsListComponent,
     ClanMemberTopLevelInfoComponent,
+    CurrentRiverRaceClanItemComponent,
   ],
+  entryComponents: [CurrentRiverRaceClanItemComponent],
   imports: [SharedModule],
   exports: [ClanOverviewComponent],
   providers: [ClanService, RiverRaceService],

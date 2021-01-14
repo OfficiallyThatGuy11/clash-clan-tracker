@@ -59,24 +59,34 @@
         </div>
       </div>
     </div>
+    <div>
+      <div>
+        <h6>Avg trophies</h6>
+        <div class="icon-value-pair">
+          <i>emoji_events</i>
+          <div>{{ clan.averagePlayerTrophies }}</div>
+        </div>
+      </div>
+      <div>
+        <h6>Avg donations</h6>
+        <div class="icon-value-pair">
+          <i>repeat</i>
+          <div>{{ clan.averageDonationsFromCurrentMembers }}</div>
+        </div>
+      </div>
+    </div>
   </div>
   <mat-tab-group *ngIf="clan">
-    <mat-tab label="Current race">
+    <mat-tab label="Members">
+      <clan-member-list-table [clan]="clan"></clan-member-list-table>
+    </mat-tab>
+    <mat-tab label="Current boat race">
       <ng-template matTabContent>
         <clan-current-river-race [clanTag]="clan.tag"></clan-current-river-race>
       </ng-template>
     </mat-tab>
-    <mat-tab label="Previous races" disabled>
+    <mat-tab label="Previous boat races" disabled>
       <ng-template matTabContent> </ng-template>
-    </mat-tab>
-    <mat-tab label="Performance" disabled>
-      <ng-template matTabContent>
-        <!-- <shared-line-chart
-          *ngIf="trophiesChartData"
-          [data]="trophiesChartData"
-          [chartLabels]="trophiesChartLabels"
-        ></shared-line-chart> -->
-      </ng-template>
     </mat-tab>
   </mat-tab-group>
 </div>

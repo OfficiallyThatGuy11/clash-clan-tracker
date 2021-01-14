@@ -5,8 +5,9 @@
 .info-row {
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
 
   > * {
-    flex: 1 1 auto;
+    flex: 1 1 1%;
   }
 }

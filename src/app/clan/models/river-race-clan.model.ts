@@ -10,4 +10,6 @@ export interface RiverRaceClan {
   repairPoints: number;
   finishTime: string;
   participants: Array<RiverRaceParticipant>;
+  averageParticipantsFame: number;
+  averageParticipantsRepairs: number;
 }

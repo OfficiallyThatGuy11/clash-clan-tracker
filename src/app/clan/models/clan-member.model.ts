@@ -3,10 +3,11 @@ interface ClanMember {
   clanChestPoints: number;
   lastSeen: string;
   lastSeenProcessed: Date;
-  lastSeenTimeAgo: string;
+  lastSeenTimeAgo: Array<string>;
   tag: string;
   name: string;
   role: string;
+  roleFormatted: string;
   expLevel: number;
   trophies: number;
   clanRank: number;

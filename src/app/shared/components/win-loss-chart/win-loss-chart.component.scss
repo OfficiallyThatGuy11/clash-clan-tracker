@@ -2,6 +2,10 @@
 
 :host {
   display: block;
+
+  > * + * {
+    margin-top: 0.8rem;
+  }
 }
 
 .win-loss-chart {
@@ -34,13 +38,13 @@
       justify-content: flex-end;
     }
 
-    >div {
+    > div {
       margin: 0 0.4rem;
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
 
-      >*+* {
+      > * + * {
         margin-left: 0.2rem;
       }
     }
@@ -53,7 +57,7 @@
     border-radius: 0.4rem;
   }
 
-  >* {
+  > * {
     height: 100%;
   }
 }
@@ -62,9 +66,8 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin-top: 0.8rem;
 
-  >div {
+  > div {
     flex: 1 1 33%;
   }
 

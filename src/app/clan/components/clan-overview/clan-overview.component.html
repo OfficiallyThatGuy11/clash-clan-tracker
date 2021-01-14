@@ -1,14 +1,15 @@
 <div class="cards-grid">
   <mat-card class="clan-information-panel-card">
     <clan-information-panel
-      *ngIf="!unloadComponents"
+      *ngIf="!unloadComponents && !failedToLoadClanData"
       [clan]="clan"
     ></clan-information-panel>
+    <div *ngIf="failedToLoadClanData">Couldn't load clan data</div>
   </mat-card>
-  <mat-card class="clan-member-list-table-card">
+  <!-- <mat-card class="clan-member-list-table-card">
     <clan-member-list-table
       *ngIf="!unloadComponents"
       [clan]="clan"
     ></clan-member-list-table>
-  </mat-card>
+  </mat-card> -->
 </div>

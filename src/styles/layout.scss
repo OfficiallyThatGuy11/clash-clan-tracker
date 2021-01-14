@@ -6,8 +6,12 @@ html {
 
 body {
   margin: 0;
-  background-color: $silver-grey;
+  background-color: $background;
   min-height: 100vh;
+}
+
+mat-card.mat-card {
+  background-color: $card-background;
 }
 
 .red-background {
@@ -18,13 +22,25 @@ body {
   background-color: $green;
 }
 
-.light-grey-background {
+.light-grey-background,
+.mat-progress-bar-buffer {
   background-color: $light-grey;
 }
 
+.warning-background {
+  background-color: $warning;
+}
+
 .dark-grey-background,
-.mat-stroked-button.dark-grey-background {
-  background-color: $dark-grey;
+.mat-stroked-button.dark-grey-background,
+button.mat-icon-button.dark-grey-background,
+button[mat-mini-fab],
+button[mat-raised-button],
+button[mat-raised-button].mat-stroked-button,
+mat-select.mat-select.dark-grey-background,
+.mat-progress-bar-fill::after,
+mat-card.mat-card.dark-grey-background {
+  background-color: $card-header-background;
 }
 
 .dark-blue-background {
@@ -33,7 +49,8 @@ body {
 
 .dark-grey-background,
 .dark-blue-background,
-.mat-stroked-button.dark-grey-background {
+.mat-stroked-button.dark-grey-background,
+mat-card.mat-card.dark-grey-background {
   color: rgba(255, 255, 255, 0.9);
 
   .mat-select-value {
@@ -49,7 +66,7 @@ body {
 }
 
 .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
-  background-color: $dark-grey;
+  background-color: $card-header-background;
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -58,7 +75,11 @@ body {
   flex-flow: nowrap;
   align-items: center;
 
-  > * {
+  > *,
+  > h6 + *,
+  > h6 + i,
+  > .h6 + *,
+  > .h6 + h6 {
     margin-top: 0;
   }
 
@@ -85,6 +106,8 @@ mat-divider {
 mat-progress-bar.mat-progress-bar {
   height: 0.8rem;
   border-radius: 0.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 .mat-form-field-infix {
@@ -101,11 +124,12 @@ mat-progress-bar.mat-progress-bar {
 
 @keyframes fadeIn {
   0% {
-    opacity: 0;
+  }
+
+  99% {
   }
 
   100% {
-    opacity: 1;
   }
 }
 
@@ -120,12 +144,22 @@ mat-progress-bar.mat-progress-bar {
 
   > * {
     margin-left: 1.6rem;
+    margin-top: 0 !important;
+  }
+
+  > .row-nowrap {
+    margin-left: 0;
   }
 }
 
 .align-right {
   text-align: right;
   justify-content: flex-end;
+}
+
+.align-center {
+  text-align: center;
+  justify-content: center;
 }
 
 .button-row,
@@ -149,14 +183,35 @@ mat-progress-bar.mat-progress-bar {
 
   &.button-row {
     align-items: center;
-    margin: 0.4rem -0.4rem -0.4rem;
+    margin: -0.4rem -1.6rem -0.8rem;
+    width: calc(100% + 3.2rm);
+    padding: 0.4rem 0.8rem;
+    background-color: $background;
+    border-top: 1px dotted rgba(0, 0, 0, 0.1);
 
-    > * {
-      margin: 0.4rem;
+    > {
+      *,
+      button {
+        margin: 0.4rem 0.8rem;
+      }
     }
   }
+}
 
-  + * {
-    margin-top: 0;
-  }
+.elevate-z {
+  z-index: 3;
+  position: relative;
+  background-color: $card-background;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-inline-block {
+  display: inline-block;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

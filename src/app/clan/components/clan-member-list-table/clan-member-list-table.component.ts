@@ -11,6 +11,8 @@ import {
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { fadeExpandHeight } from 'src/app/animations/fadeExpandHeight.animation';
 import { Router } from '@angular/router';
+import { ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
 
 @Component({
   selector: 'clan-member-list-table',
@@ -21,32 +23,36 @@ import { Router } from '@angular/router';
 export class ClanMemberListTableComponent
   implements OnInit, OnChanges, OnDestroy {
   @Input() clan: Clan;
+
   numberOfCoLeaders: number;
   numberOfElders: number;
   numberOfMembers: number;
+
   lowestTrophies = 0;
   highestTrophies = 0;
   minTrophySelectRange: Array<number>;
   maxTrophySelectRange: Array<number>;
 
-  filtersLoadedFromSessionStorage = false;
+  showFiltersLoadedFromSessionStorage = false;
+  filtersLoadedFromSessionStorage: any;
   filtersLoadedFromSessionStorageCountdownValue = 0;
   filtersLoadedFromSessionStorageCountdownInterval: any;
 
-  dataSource: MatTableDataSource<ClanMember>;
-  columns = [];
-
+  nameSearchValue = '';
   minTrophiesFilterValue: number;
   maxTrophiesFilterValue: number;
-  nameSearchValue = '';
-
-  private _roleFilterValue: 'Member' | 'Elder' | 'Co-leader';
-  get roleFilterValue(): 'Member' | 'Elder' | 'Co-leader' {
+  private _roleFilterValue: 'member' | 'elder' | 'coLeader';
+  get roleFilterValue(): 'member' | 'elder' | 'coLeader' {
     return this._roleFilterValue;
   }
-  set roleFilterValue(value: 'Member' | 'Elder' | 'Co-leader') {
+  set roleFilterValue(value: 'member' | 'elder' | 'coLeader') {
     this._roleFilterValue = value;
   }
+
+  donationsScatterChartData: ChartDataSets[];
+
+  dataSource: MatTableDataSource<ClanMember>;
+  columns = [];
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private cdr: ChangeDetectorRef, private router: Router) {}
@@ -87,34 +93,32 @@ export class ClanMemberListTableComponent
     let lowestTrophies = this.clan.averagePlayerTrophies;
     let highestTrophies = this.clan.averagePlayerTrophies;
     processedClanMembers.forEach((member) => {
-      member.role = member.role.replace(/([A-Z])/g, '-$1').toLocaleLowerCase();
-      member.role = member.role.charAt(0).toUpperCase() + member.role.slice(1);
-
       if (
-        member.clanRank === member.previousClanRank ||
-        member.previousClanRank === 0
+        member.clanRank !== member.previousClanRank ||
+        member.previousClanRank !== 0
       ) {
-      } else if (member.clanRank < member.previousClanRank) {
-        member['rankChangeIcon'] = 'arrow_upward';
-        member['rankChangeDifference'] =
-          member.previousClanRank - member.clanRank;
-      } else if (member.clanRank > member.previousClanRank) {
-        member['rankChangeIcon'] = 'arrow_downward';
-        member['rankChangeDifference'] =
-          member.clanRank - member.previousClanRank;
+        if (member.clanRank < member.previousClanRank) {
+          member['rankChangeIcon'] = 'arrow_upward';
+          member['rankChangeDifference'] =
+            member.previousClanRank - member.clanRank;
+        } else if (member.clanRank > member.previousClanRank) {
+          member['rankChangeIcon'] = 'arrow_downward';
+          member['rankChangeDifference'] =
+            member.clanRank - member.previousClanRank;
+        }
       }
 
       switch (member.role) {
-        case 'Leader': {
+        case 'leader': {
           member['roleIconType'] = '';
           break;
         }
-        case 'Co-leader': {
+        case 'coLeader': {
           member['roleIconType'] = 'two-tone';
           numOfCoLeaders++;
           break;
         }
-        case 'Elder': {
+        case 'elder': {
           member['roleIconType'] = 'outlined';
           numOfElders++;
           break;
@@ -155,6 +159,7 @@ export class ClanMemberListTableComponent
         'name',
         'trophies',
         'donations',
+        'donationsReceived',
       ];
     } else if (document.body.clientWidth < 700) {
       this.columns = [
@@ -162,8 +167,8 @@ export class ClanMemberListTableComponent
         'lastSeenTimeAgo',
         'name',
         'trophies',
-        'role',
         'donations',
+        'donationsReceived',
       ];
     } else {
       this.columns = [
@@ -171,7 +176,6 @@ export class ClanMemberListTableComponent
         'lastSeenTimeAgo',
         'name',
         'trophies',
-        'role',
         'expLevel',
         'donations',
         'donationsReceived',
@@ -179,7 +183,16 @@ export class ClanMemberListTableComponent
     }
   }
 
-  selectRoleFilter(role: 'Member' | 'Elder' | 'Co-leader'): void {
+  setupChartData(): void {
+    const labels: Label[] = [];
+    const trophiesData: number[] = [];
+    this.clan.memberList.forEach((member) => {
+      labels.push(`#${member.clanRank}`);
+      trophiesData.push(member.trophies);
+    });
+  }
+
+  selectRoleFilter(role: 'member' | 'elder' | 'coLeader'): void {
     if (this.roleFilterValue === role) {
       this.roleFilterValue = undefined;
     } else {
@@ -189,14 +202,13 @@ export class ClanMemberListTableComponent
   }
 
   filterData(): void {
+    this.checkIfPreloadedValuesChanged();
     if (
       !this.minTrophiesFilterValue ||
       isNaN(this.minTrophiesFilterValue) ||
       this.minTrophiesFilterValue < this.lowestTrophies
     ) {
       this.minTrophiesFilterValue = this.lowestTrophies;
-    } else if (this.minTrophiesFilterValue > this.maxTrophiesFilterValue) {
-      this.minTrophiesFilterValue = this.maxTrophiesFilterValue;
     }
     if (
       !this.maxTrophiesFilterValue ||
@@ -204,8 +216,6 @@ export class ClanMemberListTableComponent
       this.maxTrophiesFilterValue > this.highestTrophies
     ) {
       this.maxTrophiesFilterValue = this.highestTrophies;
-    } else if (this.maxTrophiesFilterValue < this.minTrophiesFilterValue) {
-      this.maxTrophiesFilterValue = this.minTrophiesFilterValue;
     }
     this.dataSource.data = this.clan.memberList.filter((member) => {
       let meetsCriteria = true;
@@ -245,7 +255,8 @@ export class ClanMemberListTableComponent
     this.maxTrophiesFilterValue = this.highestTrophies;
     this.dataSource.data = this.clan.memberList;
     sessionStorage.removeItem(`${this.clan.tag}_filters`);
-    this.filtersLoadedFromSessionStorage = false;
+    this.filtersLoadedFromSessionStorage = undefined;
+    this.showFiltersLoadedFromSessionStorage = false;
   }
 
   parseInt(string: string): number {
@@ -258,8 +269,14 @@ export class ClanMemberListTableComponent
       JSON.stringify({
         nameSearchValue: this.nameSearchValue,
         roleFilterValue: this.roleFilterValue,
-        minTrophiesFilterValue: this.minTrophiesFilterValue,
-        maxTrophiesFilterValue: this.maxTrophiesFilterValue,
+        minTrophiesFilterValue:
+          this.minTrophiesFilterValue !== this.lowestTrophies
+            ? this.minTrophiesFilterValue
+            : undefined,
+        maxTrophiesFilterValue:
+          this.maxTrophiesFilterValue !== this.highestTrophies
+            ? this.maxTrophiesFilterValue
+            : undefined,
       })
     );
   }
@@ -270,26 +287,53 @@ export class ClanMemberListTableComponent
     );
     if (filtersJsonString) {
       const filtersObject = JSON.parse(filtersJsonString);
-      this.nameSearchValue = filtersObject.nameSearchValue;
-      this.roleFilterValue = filtersObject.roleFilterValue;
-      this.minTrophiesFilterValue = filtersObject.minTrophiesFilterValue;
-      this.maxTrophiesFilterValue = filtersObject.maxTrophiesFilterValue;
+      if (filtersObject.nameSearchValue) {
+        this.nameSearchValue = filtersObject.nameSearchValue;
+      }
+      if (filtersObject.minTrophiesFilterValue) {
+        if (
+          filtersObject.minTrophiesFilterValue !== this.lowestTrophies &&
+          filtersObject.minTrophiesFilterValue % 500 > 0
+        ) {
+          this.minTrophiesFilterValue = this.lowestTrophies;
+        } else {
+          this.minTrophiesFilterValue = filtersObject.minTrophiesFilterValue;
+        }
+      }
+      if (filtersObject.maxTrophiesFilterValue) {
+        if (
+          filtersObject.maxTrophiesFilterValue !== this.highestTrophies &&
+          filtersObject.maxTrophiesFilterValue % 500 > 0
+        ) {
+          this.maxTrophiesFilterValue = this.highestTrophies;
+        } else {
+          this.maxTrophiesFilterValue = filtersObject.maxTrophiesFilterValue;
+        }
+      }
+      if (filtersObject.roleFilterValue) {
+        this.roleFilterValue = filtersObject.roleFilterValue;
+      }
+      this.filtersLoadedFromSessionStorage = filtersObject;
+      this.showFiltersLoadedFromSessionStorage = true;
       this.filterData();
-      this.filtersLoadedFromSessionStorage = true;
+      if (!this.dataSource.data.length) {
+        this.clearFilter();
+      }
+    }
+  }
 
-      // this.filtersLoadedFromSessionStorageCountdownValue = 10;
-      // this.filtersLoadedFromSessionStorageCountdownInterval = setInterval(
-      //   () => {
-      //     this.filtersLoadedFromSessionStorageCountdownValue--;
-      //     if (this.filtersLoadedFromSessionStorageCountdownValue === 0) {
-      //       this.filtersLoadedFromSessionStorage = false;
-      //       clearInterval(
-      //         this.filtersLoadedFromSessionStorageCountdownInterval
-      //       );
-      //     }
-      //   },
-      //   1000
-      // );
+  checkIfPreloadedValuesChanged(): void {
+    if (this.filtersLoadedFromSessionStorage) {
+      Object.keys(this.filtersLoadedFromSessionStorage).forEach((key) => {
+        const savedFilterProperty = this.filtersLoadedFromSessionStorage[key];
+        const componentFilterProperty = this[key];
+        if (
+          savedFilterProperty &&
+          savedFilterProperty !== componentFilterProperty
+        ) {
+          this.filtersLoadedFromSessionStorage[key] = undefined;
+        }
+      });
     }
   }
 }

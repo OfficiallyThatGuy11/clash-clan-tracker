@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ClanOverviewComponent implements OnInit {
   clan: Clan;
+  failedToLoadClanData = false;
+
   unloadComponents = false;
 
   constructor(
@@ -28,11 +30,16 @@ export class ClanOverviewComponent implements OnInit {
         }
         setTimeout(() => {
           this.unloadComponents = false;
-          this.clanService.getClan(tag).subscribe((res) => {
-            this.clan = res;
-            this.changeDetector.detectChanges();
-            this.clanService.addClanToRecentlyVisitedClans(this.clan);
-          });
+          this.clanService.getClan(tag).subscribe(
+            (res) => {
+              this.clan = res;
+              this.changeDetector.detectChanges();
+              this.clanService.addClanToRecentlyVisitedClans(this.clan);
+            },
+            (err) => {
+              this.failedToLoadClanData = true;
+            }
+          );
         });
       }
     });

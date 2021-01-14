@@ -61,7 +61,7 @@ export class CurrentRiverRaceParticipantsListComponent
       });
   }
 
-  toggleExpandedClan(playerTag: string): void {
+  toggleExpandedPlayer(playerTag: string): void {
     if (this.expandedPlayerTag !== playerTag) {
       this.expandedPlayerTag = playerTag;
     } else {

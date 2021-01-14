@@ -17,6 +17,14 @@
   width: 2rem;
 }
 
+td.mat-column-name {
+  max-width: 6rem;
+}
+
+td.mat-cell.mat-column-role {
+  max-width: 4rem;
+}
+
 .mat-column-trophies {
   width: 4rem;
 }
@@ -31,17 +39,77 @@ mat-slider {
 
 .warning-box {
   position: relative;
-  margin: 0 -1.6rem;
+  margin: -0.8rem -1.6rem 0;
   padding: 0.8rem 1.6rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .close-button {
   align-self: flex-start;
+}
+
+.row-nowrap {
+  align-items: center;
+}
+
+.button-row {
+  margin-top: 0.8rem;
+
+  mat-progress-bar {
+    flex: 1 1 0;
+  }
+}
+
+td.mat-column-lastSeenTimeAgo {
+  width: 4rem;
+}
+
+.warning-element-highlight-box {
+  padding: calc(0.4rem - 1px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.4rem;
+  margin: 0.4rem -0.4rem 0;
+}
+
+.row-nowrap > .warning-element-highlight-box {
+  &:first-child {
+    margin: 0 -0.4rem 0rem 1.2rem;
+  }
+
+  &:not(:first-child) {
+    margin: -0.4rem 0 0rem 1.2rem;
+  }
+}
+
+.message-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem;
+  margin: 0 calc(-0.4rem - 1px);
+  width: fit-content;
+
+  > * + * {
+    margin-left: 1.6rem;
+  }
+}
+
+.members-top-level-info {
+  display: flex;
+  > * {
+    flex: 1 1 1%;
+  }
+}
+
+.people-count-container {
+  display: flex;
+  justify-content: center;
+
+  > * {
+    margin: 0rem;
+  }
 }
 
 // @media only screen and (max-width: 800px) {

@@ -22,7 +22,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  lineChartLegend = false;
+  lineChartLegend = true;
   lineChartPlugins = [];
   lineChartType = 'line';
 

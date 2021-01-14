@@ -1,0 +1,53 @@
+<div class="clan-row" [id]="'current-race-clan-row-' + clan.tag">
+  <div>
+    {{ clan.rankFormatted }}
+  </div>
+  <div class="name-element">
+    <div *ngIf="disableClanNameLink">
+      {{ clan.name }}
+    </div>
+    <a *ngIf="!disableClanNameLink" (click)="navigateToClan()">
+      {{ clan.name }}
+    </a>
+  </div>
+  <div class="icon-value-pair">
+    <i class="small-icon outlined">military_tech</i>
+    <div>{{ clan.fame }}</div>
+  </div>
+  <div class="icon-value-pair">
+    <i class="small-icon">directions_boat</i>
+    <div>{{ clan.repairPoints }}</div>
+  </div>
+  <div class="icon-value-pair">
+    <i class="small-icon">people</i>
+    <div>{{ clan.participants.length }}</div>
+  </div>
+  <div>
+    <button
+      mat-icon-button
+      (click)="setExpandedClanByTag.emit(clan.tag)"
+      [ngClass]="{ 'dark-grey-background': expand }"
+    >
+      <i>
+        {{ !expand ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}
+      </i>
+    </button>
+  </div>
+</div>
+<h6 *ngIf="expand">Race progress</h6>
+<div class="progress-bar-row row-nowrap">
+  <h6>{{ clan.fame / 50000 | percent }}</h6>
+  <mat-progress-bar [value]="(clan.fame / 50000) * 100"></mat-progress-bar>
+</div>
+<div class="participant-list" [ngClass]="{ 'display-none': !expand }">
+  <current-river-race-participants-list
+    [clan]="clan"
+  ></current-river-race-participants-list>
+  <div
+    class="participants-footer dark-grey-background"
+    (click)="collapseThisClan.emit()"
+  >
+    <h6>Close {{ clan.name }}'s race participants</h6>
+    <i>keyboard_arrow_up</i>
+  </div>
+</div>

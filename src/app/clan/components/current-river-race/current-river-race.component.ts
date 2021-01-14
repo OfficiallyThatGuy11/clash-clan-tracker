@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { RiverRaceService } from '../../services/river-race.service';
 import { CurrentRiverRace } from '../../models/current-river-race.model';
 import { fadeExpandHeight } from 'src/app/animations/fadeExpandHeight.animation';
@@ -15,10 +15,9 @@ export class CurrentRiverRaceComponent implements OnInit {
   currentRiverRace: CurrentRiverRace;
   expandedClan: string;
 
-  constructor(
-    private riverRaceService: RiverRaceService,
-    private router: Router
-  ) {}
+  @ViewChild('currentRiverRaceContainer') currentRiverRaceElement: ElementRef;
+
+  constructor(private riverRaceService: RiverRaceService) {}
 
   ngOnInit() {
     this.riverRaceService
@@ -26,14 +25,21 @@ export class CurrentRiverRaceComponent implements OnInit {
       .subscribe((res) => (this.currentRiverRace = res));
   }
 
-  navigateToClan(clanTag: string): void {
-    this.router.navigateByUrl(`clan/${clanTag}`);
+  toggleExpandedClan(clanTag: string): void {
+    if (this.expandedClan !== clanTag) {
+      this.collapseClan();
+      this.expandedClan = clanTag;
+    } else {
+      this.expandedClan = undefined;
+    }
   }
 
-  collapseClan(clanTag: string): void {
+  collapseClan(): void {
     this.expandedClan = undefined;
-    document
-      .getElementById(`current-race-clan-row-${clanTag}`)
-      .scrollIntoView({ behavior: 'smooth' });
+
+    const clanListContainerClientRect = this.currentRiverRaceElement.nativeElement.getBoundingClientRect();
+    if (clanListContainerClientRect.top < 0) {
+      scrollBy(0, clanListContainerClientRect.y - 100);
+    }
   }
 }

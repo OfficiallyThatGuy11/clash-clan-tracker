@@ -1,7 +1,4 @@
 .player-information-panel {
-  > * + *:not(.top-level-information) {
-    margin-top: 0.8rem;
-  }
 }
 
 .top-level-information {
@@ -16,4 +13,30 @@
       margin-top: 0.8rem;
     }
   }
+}
+
+.player-info {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  margin: 0 -1.6rem -0.8rem;
+
+  > *:first-child {
+    flex: 1 0 16rem;
+    padding: 0 1.6rem;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+
+    > * + * {
+      margin-top: 0.8rem;
+    }
+  }
+
+  > *:last-child {
+    flex: 1 0 24rem;
+    padding: 0 1.6rem;
+  }
+}
+
+shared-win-loss-chart {
+  margin-bottom: 1.6rem;
 }

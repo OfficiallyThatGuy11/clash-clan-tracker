@@ -11,11 +11,23 @@
 }
 
 mat-card.mat-card {
+  position: static;
   padding: 0.8rem 1.6rem;
   box-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.8rem;
+  box-sizing: border-box;
   transition: 0.3s;
   overflow: hidden;
+
+  &.no-padding {
+    padding: 0;
+
+    .card-header,
+    .card-header-small {
+      margin: 0;
+    }
+  }
 
   mat-divider.mat-divider {
     position: relative;
@@ -27,24 +39,24 @@ mat-card.mat-card {
     margin: 0 -1.6rem -0.8rem;
     width: calc(100% + 3.2rem);
   }
-}
 
-.card-header,
-.card-header-small {
-  margin: -0.8rem -1.6rem 0;
-  padding: 0.8rem 1.6rem;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-end;
-  justify-content: space-between;
+  .card-header,
+  .card-header-small {
+    margin: -0.8rem -1.6rem 0;
+    padding: 0.8rem 1.6rem;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-end;
+    justify-content: space-between;
 
-  > * + * {
-    margin-left: 1.6rem;
-  }
+    > * + * {
+      margin-left: 1.6rem;
+    }
 
-  + div.card-header-small,
-  > * {
-    margin-top: 0;
+    + div.card-header-small,
+    > h6 + * {
+      margin-top: 0 !important;
+    }
   }
 }
 

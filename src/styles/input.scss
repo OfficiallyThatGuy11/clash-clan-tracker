@@ -4,16 +4,27 @@
 mat-select.mat-select {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.4rem;
-  padding: 0.65rem 0.6rem;
+  // padding: 0;
   display: block;
   width: unset;
   min-width: 4rem;
+  background: white;
 }
 
 .mat-select-panel:not([class*='mat-elevation-z']) {
   box-shadow: none;
-  border: 0.15em solid $light-blue;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.4rem;
+}
+
+.mat-select-trigger {
+  display: inline-table;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0.85rem 0.8rem;
+  margin: -0.2rem 0;
+  height: 1.125rem;
 }
 
 input {
@@ -28,16 +39,10 @@ input {
   border-radius: 0.4rem;
   transition: all 0.1s ease-in-out;
 
-  &:focus:not(.hide-focus-color) {
-    border-color: $light-blue;
-  }
-
   &:focus {
     border-width: 0.15rem;
     margin-left: calc(-0.15rem + 1px);
     margin-right: calc(0.15rem - 1px);
-    // border-bottom-left-radius: 0.2rem;
-    // border-bottom-right-radius: 0.2rem;
   }
 
   &.input-left-icon-padding {

@@ -6,7 +6,8 @@ table[mat-table] {
 mat-header-row,
 tr.mat-header-row[mat-header-row],
 mat-row,
-tr[mat-row] {
+tr[mat-row],
+tr.mat-row[mat-row] {
   height: unset;
 }
 
@@ -34,7 +35,7 @@ th[mat-header-cell].mat-header-cell {
     margin-right: -18px;
   }
 
-  background-color: $dark-grey;
+  background-color: $card-header-background;
 
   *,
   .mat-tab-header {

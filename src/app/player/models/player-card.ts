@@ -1,4 +1,4 @@
-export interface PlayerItemLevel {
+export interface PlayerCard {
   id: number;
   count: number;
   level: number;
